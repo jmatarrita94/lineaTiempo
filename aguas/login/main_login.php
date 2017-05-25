@@ -28,6 +28,8 @@ if (isset($_SESSION['username'])) {
         -->
         <button name="Submit" id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>
 
+        <a href="signup.php" class="btn btn-lg btn-primary btn-block" role="button" aria-pressed="true">Registrarse</a>
+
         <div id="message"></div>
       </form>
 
