@@ -3,7 +3,7 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <h1 class="display-4">Gráficos guardados</h1>
+      <h3>Gráficos guardados</h3>
       <hr class="my-3">
     </div>
   </div>

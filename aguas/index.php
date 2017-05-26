@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <h1 class="display-4">Gráficos recientes</h1>
+      <h3>Gráficos recientes</h3>
       <hr class="my-3">
     </div>
   </div>
