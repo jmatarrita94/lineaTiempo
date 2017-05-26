@@ -2,9 +2,11 @@
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-3">
-      <h4>Configuración</h4>
+    <div class="col-12">
+      <h3>Nuevo gráfico</h3>
       <hr class="my-3">
+    </div>
+    <div class="col-md-3">
       <form>
         <h5 class="mt-4">Fechas a analizar</h5>
         <div class="form-group">
