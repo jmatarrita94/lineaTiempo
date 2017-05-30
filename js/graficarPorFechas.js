@@ -23,7 +23,7 @@
 
     function obtenerI_Hol(nombre) {
       var aux = [];
-      for (var i = arrayOfObjects.length -1; i > 0; i--) {
+      for (var i = arrayOfObjects.length -1; i >= 0; i--) {
         var object = arrayOfObjects[i];
         if(object.nombre == nombre){
           aux.push(object["I-Hol"]);
@@ -33,7 +33,7 @@
     }
 
     //guardar en nombres todos los no repetidos y las fechas
-    for (var i = arrayOfObjects.length -1; i > 0; i--) {
+    for (var i = arrayOfObjects.length -1; i >= 0; i--) {
       var object = arrayOfObjects[i];
       if(!nombres.includes(object.nombre)){
         nombres.push(object.nombre);
