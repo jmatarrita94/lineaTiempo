@@ -22,24 +22,25 @@
         color: white;
       }
       html {
-        background: #efe2da;
-        background: -webkit-linear-gradient(left top, #efe2da, #dbb3a8);
-        background: -o-linear-gradient(bottom right, #efe2da, #dbb3a8);
-        background: -moz-linear-gradient(bottom right, #efe2da, #dbb3a8);
-        background: linear-gradient(to bottom right, #efe2da, #dbb3a8);
+        /*background: #efe2da;*/
+        /*background: -webkit-linear-gradient(left top, #efe2da, #dbb3a8);*/
+        /*background: -o-linear-gradient(bottom right, #efe2da, #dbb3a8);*/
+        /*background: -moz-linear-gradient(bottom right, #efe2da, #dbb3a8);*/
+        /*background: linear-gradient(to bottom right, #efe2da, #dbb3a8);*/
         height: 100%;
       }
     </style>
     <script src="js/graficarPorFechas.js"></script>
+    <script src="js/graficarPorNombre.js"></script>
   </head>
   <body>
     <form action="/action_page.php">
-      Nombre: <input type="text" name="nombre"><br>
+      Nombre: <input type="text" id="nombre"><br>
       Fecha Inicial: <input type="date" id="fechaI"><br>
       Fecha Final: <input type="date" id="fechaF"><br>
     </form>
     <button class="button" onclick="graficar()">Consulta por Fechas</button>
-    <a class="button">Consulta por Nombre</a>
+    <button class="button" onclick="graficarPorNombre()">Consulta por Nombre</button>
     <hr>
 
     <canvas id="myChart" width="100%" height="15"></canvas>
