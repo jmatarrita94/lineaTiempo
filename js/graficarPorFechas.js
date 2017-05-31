@@ -5,7 +5,7 @@
     var fechaFin = new Date(document.getElementById('fechaF').value).getTime();
     // debugger;
     var ctx = document.getElementById('myChart').getContext('2d');
-    ctx.canvas.width = 1000;
+    ctx.canvas.width = 1200;
     ctx.canvas.height = 400;
 
     var fechas = [];
@@ -23,9 +23,10 @@
 
     function obtenerI_Hol(nombre) {
       var aux = [];
-      for (var i = arrayOfObjects.length -1; i >= 0; i--) {
+      for (var i = 0; i < arrayOfObjects.length; i++) {
         var object = arrayOfObjects[i];
         if(object.nombre == nombre){
+			//if (nombre == "MONTERAN") alert(object["I-Hol"]);
           aux.push(object["I-Hol"]);
         }
       }
@@ -33,7 +34,7 @@
     }
 
     //guardar en nombres todos los no repetidos y las fechas
-    for (var i = arrayOfObjects.length -1; i >= 0; i--) {
+    for (var i = 0; i < arrayOfObjects.length; i++) {
       var object = arrayOfObjects[i];
       if(!nombres.includes(object.nombre)){
         nombres.push(object.nombre);
@@ -48,7 +49,7 @@
       obtenerI_Hol(nombres[i]);
     }
 
-
+	debugger;
     var data = {
       labels: fechas,
       datasets: [

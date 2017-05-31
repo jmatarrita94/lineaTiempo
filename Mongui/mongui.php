@@ -17,16 +17,15 @@ class Mongui {
     $fInicial = new MongoDB\BSON\UTCDateTime($fI);
     $fFinal = new MongoDB\BSON\UTCDateTime($fF);
     $query = array('fecha' => array('$gt' => $fInicial, '$lte' => $fFinal));
+	$options = ['sort' => ['fecha' => -1]];
 
-    $cursor = $collection->find($query);
+    $cursor = $collection->find($query,$options);
   	return($cursor);
   }
 
-  public static function getPorLugar($nombre, $fecha) {
+  public static function getPorNombre($nombre) {
     $collection = Database::getInstance()->getDb()->sitiosMuestreo;
-    $nombre = "Cascada Azul";
-    $fecha = "1/01/2015 00:0";
-    $query = array('nombre'=> $nombre, 'fecha' => $fecha);
+    $query = array('nombre'=> $nombre);
 
     $cursor = $collection->find($query);
   	return($cursor);
