@@ -1,16 +1,14 @@
 <?php require "inc/header.php"; ?>
 
-<div class="container">
-  <div class="row mt-4">
-    <div class="col-md-3 text-center">
-      <div class="btn-group-vertical btn-block" role="group">
-        <button type="button" class="btn btn-secondary"><a href="new.php">Nuevo</a></button>
-        <button type="button" class="btn btn-secondary"><a href="saved.php">Guardados</a></button>
-        <button type="button" class="btn btn-secondary"><a href="help.php">Ayuda</a></button>
-      </div>
-    </div>
-    <div class="col-md-9">
-
+<div class="container mt-4">
+  <div class="jumbotron text-center">
+    <h1 class="display-3">Aguas</h1>
+    <p class="lead">Graficador de la contaminación en los ríos de Costa Rica</p>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h3>Gráficos recientes</h3>
+      <hr class="my-3">
     </div>
   </div>
 </div> <!-- /container -->
