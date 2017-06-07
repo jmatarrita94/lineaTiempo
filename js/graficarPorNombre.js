@@ -66,7 +66,7 @@
     };
     
     //alert(data.length);
-    debugger;
+    //debugger;
     var myChart = new Chart(ctx, {
       type: 'line',
       data: data

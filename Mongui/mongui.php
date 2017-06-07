@@ -17,7 +17,7 @@ class Mongui {
     $fInicial = new MongoDB\BSON\UTCDateTime($fI);
     $fFinal = new MongoDB\BSON\UTCDateTime($fF);
     $query = array('fecha' => array('$gt' => $fInicial, '$lte' => $fFinal));
-	$options = ['sort' => ['fecha' => -1]];
+	$options = ['sort' => ['fecha' => 1]];
 
     $cursor = $collection->find($query,$options);
   	return($cursor);
@@ -26,8 +26,9 @@ class Mongui {
   public static function getPorNombre($nombre) {
     $collection = Database::getInstance()->getDb()->sitiosMuestreo;
     $query = array('nombre'=> $nombre);
+	$options = ['sort' => ['fecha' => -1]];
 
-    $cursor = $collection->find($query);
+    $cursor = $collection->find($query,$options);
   	return($cursor);
   }
 }
