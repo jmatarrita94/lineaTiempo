@@ -30,5 +30,12 @@ class Mongui {
     $cursor = $collection->find($query);
   	return($cursor);
   }
+
+  public static function getGraficoUsuario($usuario, $nombreGrafico){
+    $collection = Database::getInstance()->getDb()->grafi_usuarios;
+    $query = array ('usuario'=>$usuario, 'nombreGrafico'=>)
+    $cursor = $collection -> find($query);
+    return $cursor;
+  }
 }
 ?>

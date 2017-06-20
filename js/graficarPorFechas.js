@@ -49,7 +49,7 @@
       obtenerI_Hol(nombres[i]);
     }
 
-	debugger;
+	//debugger;
     var data = {
       labels: fechas,
       datasets: [
@@ -165,6 +165,13 @@
         }
       ]
     };
+
+    $.ajax({
+    type: 'POST',
+    url: 'guardaGrafi.php',
+    data: {json: JSON.stringify(data)},
+    dataType: 'json'
+});
 
     //alert(data.length);
     // debugger;
