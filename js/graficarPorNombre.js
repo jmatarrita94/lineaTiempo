@@ -19,13 +19,78 @@
         arrayOfObjects = data;
       }
     });
+    
+    var param= 1;
+	
+	switch(param){
+		case 1: 
+			var nomb = "I-Hol";
+			break;
+		case 2: 
+			var nomb = "% 02";
+			break;
+		case 3: 
+			var nomb = "DBO";
+			break;
+		case 4:
+			var nomb = "NH4";
+			break;
+		case 5: 
+			var: "I_Hol2";
+			break;
+		case 6:
+			var nomb = "DBO";
+			break;
+		case 7: 
+			var nomb = "DQO";
+			break;
+		case 8:
+			var nomb = "EC";
+			break;
+		case 9:
+			var nomb = "PO4";
+			break;
+		case 10:
+			var nomb = "GYA";
+			break;
+		case 11:
+			var nomb = "pH";
+			break;
+		case 12:
+			var nomb = "SD";
+			break;
+		case 13:
+			var nomb = "Ssed";
+			break;
+		case 14:
+			var nomb = "SST";
+			break;
+		case 15: 
+			var nomb = "SAAM";
+			break;
+		case 16:
+			var nomb= "T";
+			break;
+		case 17:
+			var nomb = "Aforo";
+			break;
+		case 18:
+			var nomb = "N";
+			break;
+		case 19:
+			var nomb = "NSFWQI";
+			break;
+		case 20:
+			var nomb = "BMWP-CR";
+			break;
+	}
 
-    function obtenerI_Hol(nombre) {
+    function obtenerParametro(nombre) {
       var aux = [];
       for (var i = arrayOfObjects.length -1; i >= 0; i--) {
         var object = arrayOfObjects[i];
         if(object.nombre == nombre){
-          aux.push(object["I-Hol"]);
+          aux.push(object[nomb]);
         }
       }
       indices.push(aux);
@@ -44,7 +109,7 @@
       }
     }
     for (var i = 0; i < nombres.length; i++) {
-      obtenerI_Hol(nombres[i]);
+      obtenerParametro(nombres[i]);
     }
 
 
