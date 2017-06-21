@@ -17,7 +17,7 @@ class Mongui {
     $fInicial = new MongoDB\BSON\UTCDateTime($fI);
     $fFinal = new MongoDB\BSON\UTCDateTime($fF);
     $query = array('fecha' => array('$gt' => $fInicial, '$lte' => $fFinal));
-	$options = ['sort' => ['fecha' => -1]];
+	$options = ['sort' => ['fecha' => 1]];
 
     $cursor = $collection->find($query,$options);
   	return($cursor);
@@ -33,7 +33,7 @@ class Mongui {
 
   public static function getGraficoUsuario($usuario, $nombreGrafico){
     $collection = Database::getInstance()->getDb()->grafi_usuarios;
-    $query = array ('usuario'=>$usuario, 'nombreGrafico'=>);
+    $query = array ('usuario'=>$usuario, 'nombreGrafico'=> $nombreGrafico);
     $cursor = $collection -> find($query);
     return $cursor;
   }

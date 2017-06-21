@@ -1,3 +1,4 @@
+// var idUsuario = 0;
 $(document).ready(function () {
     "use strict";
     $("#submit").click(function () {
@@ -16,6 +17,14 @@ $(document).ready(function () {
                     //console.log(html.response + ' ' + html.username);
                     if (html.response === 'true') {
                         //location.assign("../index.php");
+						// $.ajax({
+							// url: "getIdUsuario.php",
+							// cache: false,
+							// success: function(html){
+								// alert(html);
+								// eval( html ); /// UGLY NASTY YOU MUST VALIDATE YOUR INPUTS... JUST AN EXAMPLE
+							// }
+						// });
                        location.reload();
                         return html.username;
                     } else {

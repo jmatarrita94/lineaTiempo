@@ -1,8 +1,9 @@
-// $(document).ready(function() {
+var datosGrafico = "";
   function graficar() {
     //Obtener variables de la página
     var fechaIni = new Date(document.getElementById('fechaI').value).getTime();
     var fechaFin = new Date(document.getElementById('fechaF').value).getTime();
+	var idUsuario = 01;
     // debugger;
     var ctx = document.getElementById('myChart').getContext('2d');
     ctx.canvas.width = 1200;
@@ -166,18 +167,29 @@
       ]
     };
 
-    $.ajax({
-    type: 'POST',
-    url: 'guardaGrafi.php',
-    data: {json: JSON.stringify(data)},
-    dataType: 'json'
-});
-
-    //alert(data.length);
-    // debugger;
+    datosGrafico = JSON.stringify(data);
+	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
+	datosGrafico += ", \"IDUsuario\" : " + idUsuario + "}";
+    debugger;
     var myChart = new Chart(ctx, {
       type: 'line',
       data: data
     });
   }
-// });
+  
+    function guardarGrafi() {
+		$.ajax({
+    type: 'POST',
+    url: 'Mongui/guardaGrafi.php',
+    data: {json: datosGrafico},
+    dataType: 'json'
+})
+.done( function( data ) {
+	alert("Gr&aacutefico guardado correctamente.");
+})
+.fail( function( data ) {
+    console.log('fail');
+    console.log(data);
+});
+	  
+  }
