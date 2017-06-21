@@ -20,26 +20,26 @@
       }
     });
     
-    var param= 1;
+    var param = 7;
 	
 	switch(param){
 		case 1: 
 			var nomb = "I-Hol";
 			break;
 		case 2: 
-			var nomb = "% 02";
+			var nomb = "% O2";
 			break;
-		case 3: 
+		case 3:
 			var nomb = "DBO";
 			break;
 		case 4:
 			var nomb = "NH4";
 			break;
-		case 5: 
-			var: "I_Hol2";
+		case 5:
+			var nomb = "I_Hol2";
 			break;
 		case 6:
-			var nomb = "DBO";
+			var nomb = "CF";
 			break;
 		case 7: 
 			var nomb = "DQO";
@@ -84,6 +84,8 @@
 			var nomb = "BMWP-CR";
 			break;
 	}
+	
+	alert(nomb);
 
     function obtenerParametro(nombre) {
       var aux = [];
