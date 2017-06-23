@@ -1,6 +1,6 @@
 <?php
   require 'mongui.php';
-
+  
   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['nombre'])){
       $nombre = $_GET['nombre'];

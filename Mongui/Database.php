@@ -24,13 +24,24 @@ class Database {
 
   public function getDb() {
     if (self::$conexion == null) {
-       self::$conexion = new MongoDB\Client('mongodb://' .
+       // self::$conexion = new MongoDB\Client('mongodb://' .
+         // USERNAME . ':' . PASSWORD .
+         // '@' . HOST_IP . ':' . PORT
+       // );
+      self::$conexion = new MongoDB\Client();
+    }
+    return self::$conexion->jm;
+  }
+  
+  public function getManager() {
+    if (self::$conexion == null) {
+       self::$conexion = new MongoDB\Driver\Manager('mongodb://' .
          USERNAME . ':' . PASSWORD .
          '@' . HOST_IP . ':' . PORT
        );
       //self::$conexion = new MongoDB\Client();
     }
-    return self::$conexion->jm;
+    return self::$conexion;
   }
 
   /**

@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="../css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="../css/main.css" rel="stylesheet" media="screen">
-    <meta charset="UTF-8">
-    <title>Verify User</title>
-  </head>
-  <body>
-<?php
+    <head>
+        <link href="../css/bootstrap.css" media="screen" rel="stylesheet">
+            <link href="../css/main.css" media="screen" rel="stylesheet">
+                <meta charset="utf-8">
+                    <title>
+                        Verify User
+                    </title>
+                </meta>
+            </link>
+        </link>
+    </head>
+    <body>
+        <?php
 require 'includes/functions.php';
 include 'config.php';
 
 //Pulls variables from url. Can pass 1 (verified) or 0 (unverified/blocked) into url
-$uid = $_GET['uid'];
+$uid    = $_GET['uid'];
 $verify = $_GET['v'];
 
-$e = new SelectEmail;
-$eresult = $e->emailPull($uid);
+$e       = new SelectEmail;
+$eresult = $e->
+    emailPull($uid);
 
-$email = $eresult['email'];
+$email    = $eresult['email'];
 $username = $eresult['username'];
 
 $v = new Verify;
@@ -41,9 +47,14 @@ if (isset($uid) && !empty(str_replace(' ', '', $uid)) && isset($verify) && !empt
     }
 } else {
     //Validation error from empty form variables
-    echo 'An error occurred... click <a href="index.php">here</a> to go back.';
-};
+    echo 'An error occurred... click
+        <a href="index.php">
+            here
+        </a>
+        to go back.';
+}
+;
 
 ?>
-</body>
+    </body>
 </html>

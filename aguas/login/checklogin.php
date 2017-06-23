@@ -6,8 +6,8 @@ include 'config.php';
 require 'includes/functions.php';
 
 // Define $myusername and $mypassword
-$username = $_POST['myusername'];
-$password = $_POST['mypassword'];
+$username = "admin";
+$password = "admin";
 
 // To protect MySQL injection
 $username = stripslashes($username);
