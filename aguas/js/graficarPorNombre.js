@@ -5,7 +5,6 @@ function graficarPorNombre() {
 	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var lugar = document.getElementById("punto").value;
 	var parametro = document.getElementById("parametro").value;
-	var idUsuario = 01;
 	var tipoGrafico = '';
 	if (document.getElementById("btnLinea").checked) {
 		tipoGrafico = 'line';
@@ -67,12 +66,20 @@ function graficarPorNombre() {
             data: indices[0]
         }]
     };
+	var opciones = {scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+	}};
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
 	var canvas = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
         type: tipoGrafico,
-        data: data
+        data: data,
+		options: opciones
     });
 	document.getElementById('textboxNombreGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';

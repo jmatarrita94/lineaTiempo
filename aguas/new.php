@@ -39,7 +39,7 @@
 	</div>
 	
 	<div class=row id=botonesGuardar>
-	<div class="col-md-5"> 
+	<div class="col-md-4"> 
 	<script>
 	function graficoAImagen(){
 		var win=window.open();
@@ -48,7 +48,7 @@
 	</script>	
 	<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
 	</div>
-	<div class="col-md-7"> 
+	<div class="col-md-6"> 
 	<script src="js/guardarGrafi.js"></script>
 	<button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
 	</div>
