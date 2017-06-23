@@ -3,24 +3,23 @@ class LoginForm extends DbConn
 {
     public function checkLogin($myusername, $mypassword)
     {
-        $conf = new GlobalConf;
-        $ip_address = $conf->ip_address;
-        $login_timeout = $conf->login_timeout;
-        $max_attempts = $conf->max_attempts;
+        $conf            = new GlobalConf;
+        $ip_address      = $conf->ip_address;
+        $login_timeout   = $conf->login_timeout;
+        $max_attempts    = $conf->max_attempts;
         $timeout_minutes = $conf->timeout_minutes;
-        $attcheck = checkAttempts($myusername);
-        $curr_attempts = $attcheck['attempts'];
-
-        $datetimeNow = date("Y-m-d H:i:s");
-        $oldTime = strtotime($attcheck['lastlogin']);
-        $newTime = strtotime($datetimeNow);
-        $timeDiff = $newTime - $oldTime;
+        $attcheck        = checkAttempts($myusername);
+        $curr_attempts   = $attcheck['attempts'];
+        $datetimeNow     = date("Y-m-d H:i:s");
+        $oldTime         = strtotime($attcheck['lastlogin']);
+        $newTime         = strtotime($datetimeNow);
+        $timeDiff        = $newTime - $oldTime;
 
         try {
 
-            $db = new DbConn;
+            $db          = new DbConn;
             $tbl_members = $db->tbl_members;
-            $err = '';
+            $err         = '';
 
         } catch (PDOException $e) {
 
@@ -28,7 +27,7 @@ class LoginForm extends DbConn
 
         }
 
-        $stmt = $db->conn->prepare("SELECT * FROM ".$tbl_members." WHERE username = :myusername");
+        $stmt = $db->conn->prepare("SELECT * FROM " . $tbl_members . " WHERE username = :myusername");
         $stmt->bindParam(':myusername', $myusername);
         $stmt->execute();
 
@@ -38,20 +37,19 @@ class LoginForm extends DbConn
         if ($curr_attempts >= $max_attempts && $timeDiff < $login_timeout) {
 
             //Too many failed attempts
-            $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Maximum number of login attempts exceeded... please wait ".$timeout_minutes." minutes before logging in again</div>";
+            $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Maximum number of login attempts exceeded... please wait " . $timeout_minutes . " minutes before logging in again</div>";
 
         } else {
 
-             //If max attempts not exceeded, continue
+            //If max attempts not exceeded, continue
             // Checks password entered against db password hash
             if (password_verify($mypassword, $result['password']) && $result['verified'] == '1') {
 
                 //Success! Register $myusername, $mypassword and return "true"
                 $success = 'true';
-                    session_start();
+                session_start();
 
-                    $_SESSION['username'] = $myusername;
-					// $_SESSION['idUsuario'] = $result['id'];
+                $_SESSION['username'] = $myusername;
 
             } elseif (password_verify($mypassword, $result['password']) && $result['verified'] == '0') {
 
@@ -71,18 +69,18 @@ class LoginForm extends DbConn
     public function insertAttempt($username)
     {
         try {
-            $db = new DbConn;
-            $conf = new GlobalConf;
-            $tbl_attempts = $db->tbl_attempts;
-            $ip_address = $conf->ip_address;
+            $db            = new DbConn;
+            $conf          = new GlobalConf;
+            $tbl_attempts  = $db->tbl_attempts;
+            $ip_address    = $conf->ip_address;
             $login_timeout = $conf->login_timeout;
-            $max_attempts = $conf->max_attempts;
+            $max_attempts  = $conf->max_attempts;
 
-            $datetimeNow = date("Y-m-d H:i:s");
-            $attcheck = checkAttempts($username);
+            $datetimeNow   = date("Y-m-d H:i:s");
+            $attcheck      = checkAttempts($username);
             $curr_attempts = $attcheck['attempts'];
 
-            $stmt = $db->conn->prepare("INSERT INTO ".$tbl_attempts." (ip, attempts, lastlogin, username) values(:ip, 1, :lastlogin, :username)");
+            $stmt = $db->conn->prepare("INSERT INTO " . $tbl_attempts . " (ip, attempts, lastlogin, username) values(:ip, 1, :lastlogin, :username)");
             $stmt->bindParam(':ip', $ip_address);
             $stmt->bindParam(':lastlogin', $datetimeNow);
             $stmt->bindParam(':username', $username);
@@ -106,22 +104,22 @@ class LoginForm extends DbConn
     public function updateAttempts($username)
     {
         try {
-            $db = new DbConn;
-            $conf = new GlobalConf;
-            $tbl_attempts = $db->tbl_attempts;
-            $ip_address = $conf->ip_address;
-            $login_timeout = $conf->login_timeout;
-            $max_attempts = $conf->max_attempts;
+            $db              = new DbConn;
+            $conf            = new GlobalConf;
+            $tbl_attempts    = $db->tbl_attempts;
+            $ip_address      = $conf->ip_address;
+            $login_timeout   = $conf->login_timeout;
+            $max_attempts    = $conf->max_attempts;
             $timeout_minutes = $conf->timeout_minutes;
 
-            $att = new LoginForm;
-            $attcheck = checkAttempts($username);
+            $att           = new LoginForm;
+            $attcheck      = checkAttempts($username);
             $curr_attempts = $attcheck['attempts'];
 
             $datetimeNow = date("Y-m-d H:i:s");
-            $oldTime = strtotime($attcheck['lastlogin']);
-            $newTime = strtotime($datetimeNow);
-            $timeDiff = $newTime - $oldTime;
+            $oldTime     = strtotime($attcheck['lastlogin']);
+            $newTime     = strtotime($datetimeNow);
+            $timeDiff    = $newTime - $oldTime;
 
             $err = '';
             $sql = '';
@@ -130,7 +128,7 @@ class LoginForm extends DbConn
 
                 if ($timeDiff >= $login_timeout) {
 
-                    $sql = "UPDATE ".$tbl_attempts." SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
+                    $sql           = "UPDATE " . $tbl_attempts . " SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
                     $curr_attempts = 1;
 
                 }
@@ -139,12 +137,12 @@ class LoginForm extends DbConn
 
                 if ($timeDiff < $login_timeout) {
 
-                    $sql = "UPDATE ".$tbl_attempts." SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
+                    $sql = "UPDATE " . $tbl_attempts . " SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
                     $curr_attempts++;
 
                 } elseif ($timeDiff >= $login_timeout) {
 
-                    $sql = "UPDATE ".$tbl_attempts." SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
+                    $sql           = "UPDATE " . $tbl_attempts . " SET attempts = :attempts, lastlogin = :lastlogin where ip = :ip and username = :username";
                     $curr_attempts = 1;
 
                 }

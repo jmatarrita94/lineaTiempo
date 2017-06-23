@@ -1,16 +1,22 @@
 <?php require "inc/header.php"; ?>
-
 <div class="container mt-4">
-  <div class="jumbotron text-center">
-    <h1 class="display-3">Aguas</h1>
-    <p class="lead">Graficador de la contaminación en los ríos de Costa Rica</p>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h3>Gráficos recientes</h3>
-      <hr class="my-3">
+    <div class="jumbotron text-center">
+        <h1 class="display-3">
+            Aguas
+        </h1>
+        <p class="lead">
+            Graficador de la contaminación en los ríos de Costa Rica
+        </p>
     </div>
-  </div>
-</div> <!-- /container -->
-
+    <div class="row">
+        <div class="col-12">
+            <h3>
+                Gráficos recientes
+            </h3>
+            <hr class="my-3">
+            </hr>
+        </div>
+    </div>
+</div>
+<!-- /container -->
 <?php require "inc/footer.php"; ?>
