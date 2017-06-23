@@ -44,7 +44,9 @@ function graficarPorNombre() {
             nombres.push(object.nombre);
         }
         // debugger;
-        var fechai = new Date(Number(object.fecha.$date.$numberLong)).toDateString();
+		var fechaObj = new Date(Number(object.fecha.$date.$numberLong));
+		fechaObj.setHours(fechaObj.getHours()+24);
+        var fechai = fechaObj.toDateString();
         if (!fechas.includes(fechai)) {
             fechas.push(fechai);
         }
