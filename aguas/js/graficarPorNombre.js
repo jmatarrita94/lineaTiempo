@@ -1,6 +1,8 @@
 var datosGrafico = "";
 function graficarPorNombre() {
-    //Obtener variables de la página
+    //Obtener variables de la página	
+	$('#myChart').remove(); 
+	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var lugar = document.getElementById("punto").value;
 	var parametro = document.getElementById("parametro").value;
 	var idUsuario = 01;
@@ -67,6 +69,7 @@ function graficarPorNombre() {
     };
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
+	var canvas = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
         type: tipoGrafico,
         data: data

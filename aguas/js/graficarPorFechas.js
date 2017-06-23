@@ -1,6 +1,8 @@
 var datosGrafico = "";
 function graficar() {
     //Obtener variables de la página
+	$('#myChart').remove(); 
+	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var fechaIni = new Date(document.getElementById('fechaI').value).getTime();
     var fechaFin = new Date(document.getElementById('fechaF').value).getTime();
 	var idUsuario = 01;
