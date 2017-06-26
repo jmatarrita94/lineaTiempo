@@ -1,9 +1,10 @@
 var datosGrafico = "";
 function graficarPorNombre() {
-    //Obtener variables de la página
+    //Obtener variables de la página	
+	$('#myChart').remove(); 
+	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var lugar = document.getElementById("punto").value;
 	var parametro = document.getElementById("parametro").value;
-	var idUsuario = 01;
 	var tipoGrafico = '';
 	if (document.getElementById("btnLinea").checked) {
 		tipoGrafico = 'line';
@@ -43,7 +44,9 @@ function graficarPorNombre() {
             nombres.push(object.nombre);
         }
         // debugger;
-        var fechai = new Date(Number(object.fecha.$date.$numberLong)).toDateString();
+		var fechaObj = new Date(Number(object.fecha.$date.$numberLong));
+		fechaObj.setHours(fechaObj.getHours()+24);
+        var fechai = fechaObj.toDateString();
         if (!fechas.includes(fechai)) {
             fechas.push(fechai);
         }
@@ -65,11 +68,20 @@ function graficarPorNombre() {
             data: indices[0]
         }]
     };
+	var opciones = {scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+	}};
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
+	var canvas = document.getElementById("myChart");
     var myChart = new Chart(ctx, {
         type: tipoGrafico,
-        data: data
+        data: data,
+		options: opciones
     });
 	document.getElementById('textboxNombreGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';

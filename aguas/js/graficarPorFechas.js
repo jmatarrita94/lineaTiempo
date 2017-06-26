@@ -1,9 +1,10 @@
 var datosGrafico = "";
 function graficar() {
     //Obtener variables de la página
+	$('#myChart').remove(); 
+	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var fechaIni = new Date(document.getElementById('fechaI').value).getTime();
     var fechaFin = new Date(document.getElementById('fechaF').value).getTime();
-	var idUsuario = 01;
     var parametro = document.getElementById("parametro").value;
 	var tipoGrafico = '';
 	if (document.getElementById("btnLinea").checked) {
@@ -44,7 +45,9 @@ function graficar() {
             nombres.push(object.nombre);
         }
         // debugger;
-        var fechai = new Date(Number(object.fecha.$date.$numberLong)).toDateString();
+        var fechaObj = new Date(Number(object.fecha.$date.$numberLong));
+		fechaObj.setHours(fechaObj.getHours()+24);
+        var fechai = fechaObj.toDateString();
         if (!fechas.includes(fechai)) {
             fechas.push(fechai);
         }
@@ -55,8 +58,9 @@ function graficar() {
     debugger;
     var data = {
         labels: fechas,
-        datasets: [{
-            label: nombres[0],
+        datasets: [
+		{
+			label: nombres[0],
             // fillColor: "rgba(220,220,220,0.2)",
             // strokeColor: "rgba(220,220,220,1)",
             // pointColor: "rgba(220,220,220,1)",
@@ -155,13 +159,22 @@ function graficar() {
             // pointHighlightStroke: "rgba(255,153,0,0.4)",
             backgroundColor: "rgba(153,255,51,0.4)",
             data: indices[9]
-        }]
+        }
+		]
     };
+	var opciones = {scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+	}};
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
     var myChart = new Chart(ctx, {
         type: tipoGrafico,
-        data: data
+        data: data,
+		options: opciones
     });
 	document.getElementById('textboxNombreGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';	

@@ -16,8 +16,8 @@
     </form>
 	<script src="js/graficarPorFechas.js"></script>
 	<script src="js/graficarPorNombre.js"></script>
-    <button class="button" onclick="graficar()">Consulta por Fechas</button>
-    <button class="button" onclick="graficarPorNombre()">Consulta por Punto de Muestreo</button>
+    <button class="button btn btn-primary mt-4"  onclick="graficar()">Consulta por Fechas</button>
+    <button class="button btn btn-primary mt-4" onclick="graficarPorNombre()">Consulta por Punto de Muestreo</button>
     <hr>
 	</div>
 	<div class="col-md-5">
@@ -34,23 +34,23 @@
 	<script>document.getElementById('textboxNombreGrafico').style.display = 'none';</script>
 	</div>
 	
-	<div class=row>
+	<div class=row id="canvasGrafico">
     <canvas id="myChart" width="100%" height="15"></canvas>
 	</div>
 	
 	<div class=row id=botonesGuardar>
-	<div class="col-md-3"> 
+	<div class="col-md-4"> 
 	<script>
 	function graficoAImagen(){
 		var win=window.open();
 		win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
 	}
 	</script>	
-	<button onclick="graficoAImagen()">Guardar como imagen</button>
+	<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
 	</div>
-	<div class="col-md-5"> 
+	<div class="col-md-6"> 
 	<script src="js/guardarGrafi.js"></script>
-	<button onclick="guardarGrafi()" id="btnGuardarMongo">Guardar en "Gr&aacuteficos guardados"</button>
+	<button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
 	</div>
 	<script>document.getElementById('botonesGuardar').style.display = 'none';</script>
 	</div>
