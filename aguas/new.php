@@ -24,8 +24,9 @@
 	<div id="comboParametros"></div> 
 	<script>llenarParametros();</script>
 	Tipo de gr&aacutefico:&nbsp;
-	<input type="radio" id= "btnLinea" name="tipoGrafico" value="linea" checked="true"> De linea &nbsp;
-	<input type="radio" id= "btnBarras" name="tipoGrafico" value="barras"> De barras	
+	<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true"> Por área &nbsp;
+	<input type="radio" id= "btnXY" name="tipoGrafico" value="barras"> XY &nbsp;
+	<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja"> Burbuja 
 	</div>
 	</div>
 	
