@@ -22,11 +22,13 @@
 	</div>
 	<div class="col-md-5">
 	<div id="comboParametros"></div> 
+	<div id="comboParametros2"></div> 
 	<script>llenarParametros();</script>
+	<br>
 	Tipo de gr&aacutefico:&nbsp;
-	<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true"> Por área &nbsp;
-	<input type="radio" id= "btnXY" name="tipoGrafico" value="barras"> XY &nbsp;
-	<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja"> Burbuja 
+	<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true" onclick="document.getElementById('comboParametros2').style.display = 'none';"> Por área &nbsp;
+	<input type="radio" id= "btnXY" name="tipoGrafico" value="barras" onclick="document.getElementById('comboParametros2').style.display = 'none';"> XY &nbsp;
+	<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja 
 	</div>
 	</div>
 	
