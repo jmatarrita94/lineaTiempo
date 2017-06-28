@@ -51,6 +51,7 @@ document.getElementById('comboPuntos').innerHTML = html;
 function llenarParametros() {
 	var json = {};
 	var html = "Parámetro a analizar: <select id=\"parametro\">";
+	var html2 = "Segundo Parámetro a analizar: <select id=\"parametro2\">";
 	$.ajax({
 		  url: "Mongui/getPuntos.php",
 		  async: false,
@@ -60,6 +61,10 @@ function llenarParametros() {
 		  }
 		});
 	html = parsearParametros(json,html);
+	html2 = parsearParametros(json,html2);
 	html += "</select>";
+	html2 += "</select>";
 	document.getElementById('comboParametros').innerHTML = html;
+	document.getElementById('comboParametros2').innerHTML = html2;
+	document.getElementById('comboParametros2').style.display = 'none';
 }
