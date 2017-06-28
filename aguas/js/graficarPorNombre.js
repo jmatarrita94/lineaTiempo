@@ -1,4 +1,63 @@
 var datosGrafico = "";
+function datosBurbuja(fechas,indices,nombres) {
+	return {
+			x: fechas,
+			datasets: [
+			{
+				label: nombres[0],
+				// fillColor: "rgba(220,220,220,0.2)",
+				// strokeColor: "rgba(220,220,220,1)",
+				// pointColor: "rgba(220,220,220,1)",
+				// pointStrokeColor: "#fff",
+				// pointHighlightFill: "#fff",
+				// pointHighlightStroke: "rgba(220,220,220,1)",
+				borderColor: "rgba(255, 0, 0, 0.4)",
+				fill: false,
+				data: indices[0]
+			}
+			]
+		};
+}
+
+function datosXY(fechas,indices,nombres) {
+	return {
+			labels: fechas,
+			datasets: [
+			{
+				label: nombres[0],
+				// fillColor: "rgba(220,220,220,0.2)",
+				// strokeColor: "rgba(220,220,220,1)",
+				// pointColor: "rgba(220,220,220,1)",
+				// pointStrokeColor: "#fff",
+				// pointHighlightFill: "#fff",
+				// pointHighlightStroke: "rgba(220,220,220,1)",
+				borderColor: "rgba(255, 0, 0, 0.4)",
+				fill: false,
+				data: indices[0]
+			}
+			]
+		};
+}
+
+function datosArea(fechas,indices,nombres) {
+	return {
+			labels: fechas,
+			datasets: [
+			{
+				label: nombres[0],
+				// fillColor: "rgba(220,220,220,0.2)",
+				// strokeColor: "rgba(220,220,220,1)",
+				// pointColor: "rgba(220,220,220,1)",
+				// pointStrokeColor: "#fff",
+				// pointHighlightFill: "#fff",
+				// pointHighlightStroke: "rgba(220,220,220,1)",
+				backgroundColor: "rgba(255, 0, 0, 0.4)",
+				data: indices[0]
+			}
+			]
+		};
+}
+
 function graficarPorNombre() {
     //Obtener variables de la página	
 	$('#myChart').remove(); 
@@ -6,10 +65,10 @@ function graficarPorNombre() {
     var lugar = document.getElementById("punto").value;
 	var parametro = document.getElementById("parametro").value;
 	var tipoGrafico = '';
-	if (document.getElementById("btnLinea").checked) {
+	if (document.getElementById("btnArea").checked || document.getElementById("btnXY").checked) {
 		tipoGrafico = 'line';
 	} else {
-		tipoGrafico = 'bar';
+		tipoGrafico = 'bubble';
 	}
     var ctx = document.getElementById('myChart').getContext('2d');
     ctx.canvas.width = 1000;
@@ -54,20 +113,14 @@ function graficarPorNombre() {
     for (var i = 0; i < nombres.length; i++) {
         obtenerParametro(nombres[i]);
     }
-    var data = {
-        labels: fechas,
-        datasets: [{
-            label: nombres[0],
-            // fillColor: "rgba(220,220,220,0.2)",
-            // strokeColor: "rgba(220,220,220,1)",
-            // pointColor: "rgba(220,220,220,1)",
-            // pointStrokeColor: "#fff",
-            // pointHighlightFill: "#fff",
-            // pointHighlightStroke: "rgba(220,220,220,1)",
-            backgroundColor: "rgba(255, 0, 0, 0.4)",
-            data: indices[0]
-        }]
-    };
+    var data = {};
+	if (document.getElementById("btnBurbuja").checked) {
+		data = datosBurbuja(fechas,indices,nombres);
+	} else if (document.getElementById("btnXY").checked) {
+		data = datosXY(fechas,indices,nombres);
+	} else {
+		data = datosArea(fechas,indices,nombres);
+	}
 	var opciones = {scales: {
         yAxes: [{
             ticks: {
