@@ -2,60 +2,59 @@
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js">
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="js/llenarComboPuntos.js"></script>
 <div class="container mt-4">
 	<div class="row">
-	<div class="col-md-6">
-    <form action="/action_page.php">
-      <div id="comboPuntos"></div> 
-	  <script>llenarPuntos();</script><br>
-      Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01"><br>
-      Fecha Final: <input type="date" id="fechaF" value="2015-12-31"><br>
-    </form>
-	<script src="js/graficarPorFechas.js"></script>
-	<script src="js/graficarPorNombre.js"></script>
-    <button class="button btn btn-primary mt-4"  onclick="graficar()">Consulta por Fechas</button>
-    <button class="button btn btn-primary mt-4" onclick="graficarPorNombre()">Consulta por Punto de Muestreo</button>
-    <hr>
-	</div>
-	<div class="col-md-5">
-	<div id="comboParametros"></div> 
-	<div id="comboParametros2"></div> 
-	<script>llenarParametros();</script>
-	<br>
-	Tipo de gr&aacutefico:&nbsp;
-	<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true" onclick="document.getElementById('comboParametros2').style.display = 'none';"> Por área &nbsp;
-	<input type="radio" id= "btnXY" name="tipoGrafico" value="barras" onclick="document.getElementById('comboParametros2').style.display = 'none';"> XY &nbsp;
-	<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja 
-	</div>
+		<div class="col-md-6">
+			<form action="/action_page.php">
+			  <div id="comboPuntos"></div> 
+			  <script>llenarPuntos();</script><br>
+			  Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01"><br>
+			  Fecha Final: <input type="date" id="fechaF" value="2015-12-31"><br>
+			</form>
+			<script src="js/graficarPorFechas.js"></script>
+			<script src="js/graficarPorNombre.js"></script>
+			<button class="button btn btn-primary mt-4"  onclick="graficar()">Consulta por Fechas</button>
+			<button class="button btn btn-primary mt-4" onclick="graficarPorNombre()">Consulta por Punto de Muestreo</button>
+			<hr>
+		</div>
+		<div class="col-md-5">
+			<div id="comboParametros"></div> 
+			<div id="comboParametros2"></div> 
+			<script>llenarParametros();</script>
+			<br>
+			Tipo de gr&aacutefico:&nbsp;
+			<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true" onclick="document.getElementById('comboParametros2').style.display = 'none';"> Por área &nbsp;
+			<input type="radio" id= "btnXY" name="tipoGrafico" value="barras" onclick="document.getElementById('comboParametros2').style.display = 'none';"> XY &nbsp;
+			<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja 
+		</div>
 	</div>
 	
-	<div class="row" id=textboxNombreGrafico>
-	Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>
-	<script>document.getElementById('textboxNombreGrafico').style.display = 'none';</script>
+	<div class="row" id=textboxNombreGrafico style="display: none">
+		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>		
 	</div>
 	
 	<div class=row id="canvasGrafico">
-    <canvas id="myChart" width="100%" height="15"></canvas>
+		<canvas id="myChart" width="100%" height="15"></canvas>		
 	</div>
-	
-	<div class=row id=botonesGuardar>
-	<div class="col-md-4"> 
-	<script>
-	function graficoAImagen(){
-		var win=window.open();
-		win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
-	}
-	</script>	
-	<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
+	<div class="scrollmenu" id="scrollFechas">
+	  
 	</div>
-	<div class="col-md-6"> 
-	<script src="js/guardarGrafi.js"></script>
-	<button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
-	</div>
-	<script>document.getElementById('botonesGuardar').style.display = 'none';</script>
+	<div class=row id=botonesGuardar style="display: none">
+		<div class="col-md-4"> 
+			<script>
+				function graficoAImagen(){
+					var win=window.open();
+					win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
+				}
+			</script>	
+			<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
+		</div>
+		<div class="col-md-6"> 
+			<script src="js/guardarGrafi.js"></script>
+			<button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
+		</div>
 	</div>
 	
 

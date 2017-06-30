@@ -1,289 +1,93 @@
 var datosGrafico = "";
+var indFechaAct = 0;
 
 function datosBurbujaF(fechas,indices,indices2,nombres) {
-	return {
-		datasets: [{
+	var datos = [];
+	for (var i = 0 ; i < fechas.length ; i++) {
+		datos[i] = {datasets: [{
 			label: nombres[0],
 			data: [{
-			  x: fechas[0],
-			  y: indices[0][0],
-			  r: indices2[0][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[0][1],
-			  r: indices2[0][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[0][2],
-			  r: indices2[0][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[0][3],
-			  r: indices2[0][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[0][4],
-			  r: indices2[0][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[0][5],
-			  r: indices2[0][5]
+				x: fechas[i],
+				y: indices[0][i],
+				r: indices2[0][i]
 			}],
 		 backgroundColor: "rgba(255, 0, 0, 0.4)"
 		},{
 			label: nombres[1],
 			data: [{
-			  x: fechas[0],
-			  y: indices[1][0],
-			  r: indices2[1][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[1][1],
-			  r: indices2[1][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[1][2],
-			  r: indices2[1][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[1][3],
-			  r: indices2[1][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[1][4],
-			  r: indices2[1][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[1][5],
-			  r: indices2[1][5]
+				x: fechas[i],
+				y: indices[1][i],
+				r: indices2[1][i]
 			}],
 		 backgroundColor: "rgba(237, 180, 183,0.4)"
 		},{
 			label: nombres[2],
 			data: [{
-			  x: fechas[0],
-			  y: indices[2][0],
-			  r: indices2[2][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[2][1],
-			  r: indices2[2][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[2][2],
-			  r: indices2[2][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[2][3],
-			  r: indices2[2][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[2][4],
-			  r: indices2[2][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[2][5],
-			  r: indices2[2][5]
+				x: fechas[i],
+				y: indices[2][i],
+				r: indices2[2][i]
 			}],
 		 backgroundColor: "rgba(0, 255, 0, 0.4)"
 		},{
 			label: nombres[3],
 			data: [{
-			  x: fechas[0],
-			  y: indices[3][0],
-			  r: indices2[3][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[3][1],
-			  r: indices2[3][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[3][2],
-			  r: indices2[3][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[3][3],
-			  r: indices2[3][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[3][4],
-			  r: indices2[3][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[3][5],
-			  r: indices2[3][5]
+				x: fechas[i],
+				y: indices[3][i],
+				r: indices2[3][i]
 			}],
 		 backgroundColor: "rgba(0,0,255,0.4)"
 		},{
 			label: nombres[4],
 			data: [{
-			  x: fechas[0],
-			  y: indices[4][0],
-			  r: indices2[4][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[4][1],
-			  r: indices2[4][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[4][2],
-			  r: indices2[4][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[4][3],
-			  r: indices2[4][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[4][4],
-			  r: indices2[4][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[4][5],
-			  r: indices2[4][5]
+				x: fechas[i],
+				y: indices[4][i],
+				r: indices2[4][i]
 			}],
 		 backgroundColor: "rgba(0,0,255,0.4)"
 		},{
 			label: nombres[5],
 			data: [{
-			  x: fechas[0],
-			  y: indices[5][0],
-			  r: indices2[5][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[5][1],
-			  r: indices2[5][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[5][2],
-			  r: indices2[5][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[5][3],
-			  r: indices2[5][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[5][4],
-			  r: indices2[5][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[5][5],
-			  r: indices2[5][5]
+				x: fechas[i],
+				y: indices[5][i],
+				r: indices2[5][i]
 			}],
 		 backgroundColor: "rgba(188, 0, 190,0.4)"
 		},{
 			label: nombres[6],
 			data: [{
-			  x: fechas[0],
-			  y: indices[6][0],
-			  r: indices2[6][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[6][1],
-			  r: indices2[6][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[6][2],
-			  r: indices2[6][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[6][3],
-			  r: indices2[6][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[6][4],
-			  r: indices2[6][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[6][5],
-			  r: indices2[6][5]
+				x: fechas[i],
+				y: indices[6][i],
+				r: indices2[6][i]
 			}],
 		 backgroundColor: "rgba(1, 188, 190,0.4)"
 		},{
-			label: nombres[0],
+			label: nombres[7],
 			data: [{
-			  x: fechas[0],
-			  y: indices[7][0],
-			  r: indices2[7][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[7][1],
-			  r: indices2[7][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[7][2],
-			  r: indices2[7][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[7][3],
-			  r: indices2[7][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[7][4],
-			  r: indices2[7][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[7][5],
-			  r: indices2[7][5]
+				x: fechas[i],
+				y: indices[7][i],
+				r: indices2[7][i]
 			}],
 		 backgroundColor: "rgba(219, 216, 0,0.4)"
 		},{
 			label: nombres[8],
 			data: [{
-			  x: fechas[0],
-			  y: indices[8][0],
-			  r: indices2[8][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[8][1],
-			  r: indices2[8][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[8][2],
-			  r: indices2[8][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[8][3],
-			  r: indices2[8][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[8][4],
-			  r: indices2[8][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[8][5],
-			  r: indices2[8][5]
+				x: fechas[i],
+				y: indices[8][i],
+				r: indices2[8][i]
 			}],
 		 backgroundColor: "rgba(254, 132, 10,0.4)"
 		},{
 			label: nombres[9],
 			data: [{
-			  x: fechas[0],
-			  y: indices[9][0],
-			  r: indices2[9][0]
-			}, {
-			  x: fechas[1],
-			  y: indices[9][1],
-			  r: indices2[9][1]
-			}, {
-			  x: fechas[2],
-			  y: indices[9][2],
-			  r: indices2[9][2]
-			}, {
-			  x: fechas[3],
-			  y: indices[9][3],
-			  r: indices2[9][3]
-			}, {
-			  x: fechas[4],
-			  y: indices[9][4],
-			  r: indices2[9][4]
-			}, {
-			  x: fechas[5],
-			  y: indices[9][5],
-			  r: indices2[9][5]
+				x: fechas[i],
+				y: indices[9][i],
+				r: indices2[9][i]
 			}],
 		 backgroundColor: "rgba(153,255,51,0.4)"
 		}]
-	};
+		};
+	}
+	return datos[indFechaAct];
 }
 
 function datosAreaF(fechas,indices,nombres) {
@@ -623,6 +427,18 @@ function datosAreaF(fechas,indices,nombres) {
 		};
 }
 
+function llenarScrollFechas(fechas) {
+	var elHtml = "";
+	for (var i = 0 ; i < fechas.length ; i++) {
+		var laFecha = new Date(Number(fechas[i]));
+		laFecha.setHours(laFecha.getHours()+24);
+		elHtml += "<a href=\"#\" id=\"fecha" + i + "\">" + laFecha.toDateString() + "</a>";
+	}
+	document.getElementById('scrollFechas').style.display = 'block';
+	document.getElementById('scrollFechas').innerHTML = elHtml;
+	document.getElementById('fecha'+indFechaAct).style.backgroundColor = '#777';
+}
+
 function graficar() {
     //Obtener variables de la página
 	$('#myChart').remove(); 
@@ -709,7 +525,8 @@ function graficar() {
 					labelString: parametro
 				}
 			}]
-		}};	
+		}};
+		document.getElementById('scrollFechas').style.display = 'none';
 	} else {
 		var opciones = {
 			scales: {
@@ -723,16 +540,11 @@ function graficar() {
 				}
 				}],
 				xAxes: [{
-					ticks: {
-						callback: function(value, index, values) {
-							var fechaObj = new Date(Number(value));
-							fechaObj.setHours(fechaObj.getHours()+24);
-							return fechai = fechaObj.toDateString();
-						}
-					}
+					display: false
 				}]
 			}
-		};	
+		};
+		llenarScrollFechas(fechas);
 	}
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
@@ -742,6 +554,6 @@ function graficar() {
 		options: opciones
     });
 	document.getElementById('textboxNombreGrafico').style.display = 'block';
-	document.getElementById('botonesGuardar').style.display = 'block';	
+	document.getElementById('botonesGuardar').style.display = 'block';
 }
 // });

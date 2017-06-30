@@ -127,7 +127,10 @@ function graficarPorNombre() {
                 beginAtZero: true
             }
         }]
-	}};
+	},title: {
+				display: true,
+				text: 'Evolución del índice de %O2'
+			}};
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
 	var canvas = document.getElementById("myChart");
