@@ -1,8 +1,7 @@
 function guardarGrafi() {
-	datosGrafico += ", \"NombreGrafico\" : \"" + document.getElementById("nombreGrafico").value + "\"}";
 		$.ajax({
     type: 'POST',
-    url: 'Mongui/guardaGrafi.php',
+    url: 'baseDatos/getGraficos.php',
     data: {json: datosGrafico},
     dataType: 'json'
 })
@@ -14,5 +13,5 @@ function guardarGrafi() {
     console.log('fail');
     console.log(data);
 });
-	  
+
   }
