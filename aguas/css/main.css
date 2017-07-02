@@ -68,3 +68,49 @@ body {
     /* Vertically center the text there */
     background-color: #f5f5f5;
 }
+
+ul.ulFechas {
+    text-align: justify;
+}
+ul.ulFechas:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+ul.ulFechas:before {
+    content: '';
+    display: block;
+    margin-top: -1.25em;
+}
+li.liFechas {
+    background-color: #0275d8;
+    color: #fff;
+    display: inline-block;
+    font: 1em/1.5 sans-serif;
+    margin-right: -.25em;
+    padding: .75em 1.5em;
+    position: relative;
+    top: 1.25em;
+    cursor:default;
+}
+li.liFechasSelected {
+    background-color: #777;
+    color: #fff;
+    display: inline-block;
+    font: 1em/1.5 sans-serif;
+    margin-right: -.25em;
+    padding: .75em 1.5em;
+    position: relative;
+    top: 1.25em;
+    cursor:default;
+}
+li.liFechas:hover {
+    background-color: #025aa5;
+    color: #fff;
+    display: inline-block;
+    font: 1em/1.5 sans-serif;
+    margin-right: -.25em;
+    padding: .75em 1.5em;
+    position: relative;
+    top: 1.25em;
+}

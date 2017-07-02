@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<form action="/action_page.php">
-			  <div id="comboPuntos"></div> 
+			  <div id="comboPuntos"></div>
 			  <script>llenarPuntos();</script><br>
 			  Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01"><br>
 			  Fecha Final: <input type="date" id="fechaF" value="2015-12-31"><br>
@@ -20,43 +20,42 @@
 			<hr>
 		</div>
 		<div class="col-md-5">
-			<div id="comboParametros"></div> 
-			<div id="comboParametros2"></div> 
+			<div id="comboParametros"></div>
+			<div id="comboParametros2"></div>
 			<script>llenarParametros();</script>
 			<br>
 			Tipo de gr&aacutefico:&nbsp;
 			<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true" onclick="document.getElementById('comboParametros2').style.display = 'none';"> Por área &nbsp;
 			<input type="radio" id= "btnXY" name="tipoGrafico" value="barras" onclick="document.getElementById('comboParametros2').style.display = 'none';"> XY &nbsp;
-			<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja 
+			<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja
 		</div>
 	</div>
-	
+
 	<div class="row" id=textboxNombreGrafico style="display: none">
-		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>		
+		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>
 	</div>
-	
+
 	<div class=row id="canvasGrafico">
-		<canvas id="myChart" width="100%" height="15"></canvas>		
+		<canvas id="myChart" width="100%" height="15"></canvas>
 	</div>
 	<div class="scrollmenu" id="scrollFechas">
-	  
+
 	</div>
 	<div class=row id=botonesGuardar style="display: none">
-		<div class="col-md-4"> 
+		<div class="col-md-6">
 			<script>
 				function graficoAImagen(){
 					var win=window.open();
 					win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
 				}
-			</script>	
-			<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
-		</div>
-		<div class="col-md-6"> 
+			</script>
 			<script src="js/guardarGrafi.js"></script>
+			<button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
 			<button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
 		</div>
+
 	</div>
-	
+
 
     <!-- <div class="row">
         <div class="col-12">

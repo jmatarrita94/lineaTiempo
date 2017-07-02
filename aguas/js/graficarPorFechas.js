@@ -1,10 +1,11 @@
 var datosGrafico = "";
 var indFechaAct = 0;
+var elGrafico;
+var datosBurbuja = [];
 
 function datosBurbujaF(fechas,indices,indices2,nombres) {
-	var datos = [];
 	for (var i = 0 ; i < fechas.length ; i++) {
-		datos[i] = {datasets: [{
+		datosBurbuja[i] = {datasets: [{
 			label: nombres[0],
 			data: [{
 				x: fechas[i],
@@ -87,7 +88,7 @@ function datosBurbujaF(fechas,indices,indices2,nombres) {
 		}]
 		};
 	}
-	return datos[indFechaAct];
+	return datosBurbuja[indFechaAct];
 }
 
 function datosAreaF(fechas,indices,nombres) {
@@ -427,21 +428,46 @@ function datosAreaF(fechas,indices,nombres) {
 		};
 }
 
+function cambiarScrollFecha(objeto) {
+	var idObjeto = objeto.id;
+	/**Cambiar estilo de los cuadros con las fechas**/
+	var encontrado = false;
+	var i = 0;
+	while (!encontrado) {
+		if (idObjeto == "fecha" + i) {
+			encontrado = true;
+		} else {
+			i++;
+		}
+	}
+	if (indFechaAct != i) {
+		//Si no está marcado ya al que se le dio clic
+		document.getElementById("fecha"+indFechaAct).className = 'liFechas';
+		document.getElementById(idObjeto).className = 'liFechasSelected';
+		indFechaAct = i;
+
+		/**Cambiar el dataset del gráfico**/
+		elGrafico.config.data = datosBurbuja[indFechaAct];
+		elGrafico.update();
+	}
+}
+
 function llenarScrollFechas(fechas) {
-	var elHtml = "";
+	var elHtml = "<ul class=\"ulFechas\">\n";
 	for (var i = 0 ; i < fechas.length ; i++) {
 		var laFecha = new Date(Number(fechas[i]));
 		laFecha.setHours(laFecha.getHours()+24);
-		elHtml += "<a href=\"#\" id=\"fecha" + i + "\">" + laFecha.toDateString() + "</a>";
+		elHtml += "<li class=\"liFechas\" id=\"fecha" + i + "\" onclick=\"cambiarScrollFecha(this)\">" + laFecha.toDateString() + "</li>\n";
 	}
+	elHtml += "</ul>";
 	document.getElementById('scrollFechas').style.display = 'block';
 	document.getElementById('scrollFechas').innerHTML = elHtml;
-	document.getElementById('fecha'+indFechaAct).style.backgroundColor = '#777';
+	document.getElementById('fecha'+indFechaAct).className = 'liFechasSelected';
 }
 
 function graficar() {
     //Obtener variables de la página
-	$('#myChart').remove(); 
+	$('#myChart').remove();
 	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
     var fechaIni = new Date(document.getElementById('fechaI').value).getTime();
     var fechaFin = new Date(document.getElementById('fechaF').value).getTime();
@@ -453,7 +479,7 @@ function graficar() {
 	} else {
 		tipoGrafico = 'bubble';
 	}
-	
+
     var ctx = document.getElementById('myChart').getContext('2d');
     ctx.canvas.width = 1200;
     ctx.canvas.height = 400;
@@ -494,13 +520,13 @@ function graficar() {
 			//Hacer que se guarden las fechas como '12 oct 97' en el arreglo de fechas nombre y después hacer como un match entre el índice del label del gráfico y el de este arreglo
 			var fechai = Number(object.fecha.$date.$numberLong);
 		} else {
-			var fechaObj = new Date(Number(object.fecha.$date.$numberLong));		
+			var fechaObj = new Date(Number(object.fecha.$date.$numberLong));
 			fechaObj.setHours(fechaObj.getHours()+24);
-			var fechai = fechaObj.toDateString();			
-		}   
+			var fechai = fechaObj.toDateString();
+		}
 		if (!fechas.includes(fechai)) {
 			fechas.push(fechai);
-		}		
+		}
     }
     for (var i = 0; i < nombres.length; i++) {
         obtenerParametro(nombres[i]);
@@ -548,7 +574,7 @@ function graficar() {
 	}
     datosGrafico = JSON.stringify(data);
 	datosGrafico = datosGrafico.slice(0,datosGrafico.length-1);
-    var myChart = new Chart(ctx, {
+    elGrafico = new Chart(ctx, {
         type: tipoGrafico,
         data: data,
 		options: opciones
