@@ -31,7 +31,7 @@ class Mongui
     {
         $collection = Database::getInstance()->getDb()->sitiosMuestreo;
         $query      = array('nombre' => $nombre);
-        $options    = ['sort' => ['fecha' => -1]];
+        $options    = ['sort' => ['fecha' => 1]];
 
         $cursor = $collection->find($query, $options);
         return ($cursor);

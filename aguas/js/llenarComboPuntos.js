@@ -34,7 +34,7 @@ function parsearParametros(parametros,html) {
 
 function llenarPuntos() {
 var json = {};
-var html = "Punto de muestreo: <select id=\"punto\">";
+var html = "Punto de muestreo: <select id=\"punto\" onchange=\"if(graficoGenerado && graficoNombre) graficar();\">";
 $.ajax({
       url: "Mongui/getPuntos.php",
       async: false,
@@ -50,8 +50,8 @@ document.getElementById('comboPuntos').innerHTML = html;
 
 function llenarParametros() {
 	var json = {};
-	var html = "Parámetro a analizar: <select id=\"parametro\">";
-	var html2 = "Segundo Parámetro a analizar: <select id=\"parametro2\">";
+	var html = "Parámetro a analizar: <select id=\"parametro\" onchange=\"if(graficoGenerado) graficar();\">";
+	var html2 = "Segundo Parámetro a analizar: <select id=\"parametro2\" onchange=\"if(graficoGenerado) graficar();\">";
 	$.ajax({
 		  url: "Mongui/getPuntos.php",
 		  async: false,

@@ -10,14 +10,15 @@
 			<form action="/action_page.php">
 			  <div id="comboPuntos"></div>
 			  <script>llenarPuntos();</script><br>
-			  Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01"><br>
-			  Fecha Final: <input type="date" id="fechaF" value="2015-12-31"><br>
+			  Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) graficar();"><br>
+			  Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) graficar();"><br>
 			</form>
 			<script src="js/graficarPorFechas.js"></script>
 			<script src="js/graficarPorNombre.js"></script>
-			<button class="button btn btn-primary mt-4"  onclick="graficar()">Consulta por Fechas</button>
-			<button class="button btn btn-primary mt-4" onclick="graficarPorNombre()">Consulta por Punto de Muestreo</button>
-			<hr>
+			<button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficoNombre = false; graficar();">Consulta por Fechas</button>
+			<button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficoNombre = true; graficar();">Consulta por Punto de Muestreo</button>
+			<br>
+			<br>
 		</div>
 		<div class="col-md-5">
 			<div id="comboParametros"></div>
@@ -25,9 +26,9 @@
 			<script>llenarParametros();</script>
 			<br>
 			Tipo de gr&aacutefico:&nbsp;
-			<input type="radio" id= "btnArea" name="tipoGrafico" value="linea" checked="true" onclick="document.getElementById('comboParametros2').style.display = 'none';"> Por área &nbsp;
-			<input type="radio" id= "btnXY" name="tipoGrafico" value="barras" onclick="document.getElementById('comboParametros2').style.display = 'none';"> XY &nbsp;
-			<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="document.getElementById('comboParametros2').style.display = 'block';"> Burbuja
+			<input type="radio" id= "btnArea" name="tipoGrafico" value="area" checked="true" onclick="cambiarTipoGrafico('area');"> Por área &nbsp;
+			<input type="radio" id= "btnXY" name="tipoGrafico" value="xy" onclick="cambiarTipoGrafico('xy');"> XY &nbsp;
+			<input type="radio" id= "btnBurbuja" name="tipoGrafico" value="burbuja" onclick="cambiarTipoGrafico('burbuja');"> Burbuja
 		</div>
 	</div>
 
