@@ -1,6 +1,8 @@
 <?php
 require 'mongui.php';
-
+/**
+* Imprime un JSON con todos los documentos de la colección "sitiosMuestreo"
+**/
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$datos = Mongui::getAll();
 	if ((string) $datos->getID() != '') {

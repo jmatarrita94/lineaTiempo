@@ -4,48 +4,60 @@ require_once 'mongo_login.php';
 require 'vendor/autoload.php';
 
 /**
- * Representa un objeto de la base de datos de MongoDB
- */
+* Representa un objeto de la conexión con la base de datos de MongoDB
+*/
 class Database
 {
-    private static $db = null;
+  private static $db = null; //Objeto que contiene la instancia de la base de datos
+  private static $conexion; //MongoDB Client para la conexión con la base de datos
 
-    private static $conexion;
+  /**
+  * Construye el objeto
+  */
+  final private function __construct()
+  {
+    self::getDb();
+  }
 
-    final private function __construct()
-    {
-        self::getDb();
+  /**
+  * Retorna la instancia del objeto si esta existe, sino, la crea
+  * @return El objeto que contiene la instancia de la base de datos
+  */
+  public static function getInstance()
+  {
+    if (self::$db === null) {
+      self::$db = new self();
     }
+    return self::$db;
+  }
 
-    public static function getInstance()
-    {
-        if (self::$db === null) {
-            self::$db = new self();
-        }
-        return self::$db;
-    }
+  /**
+  * Retorna un MongoDB Client para la conexión con la base de datos
+  * @return un MongoDB Client
+  */
+  public function getDb()
+  {
+    if (self::$conexion == null) {
+      self::$conexion = new MongoDB\Client('mongodb://' .
+      USERNAME . ':' . PASSWORD .
+      '@' . HOST_IP . ':' . PORT
+    );
+    // self::$conexion = new MongoDB\Client();
+    return self::$conexion->jm;
+  }
 
-    public function getDb()
-    {
-        if (self::$conexion == null) {
-            self::$conexion = new MongoDB\Client('mongodb://' .
-                USERNAME . ':' . PASSWORD .
-                '@' . HOST_IP . ':' . PORT
-            );
-            // self::$conexion = new MongoDB\Client();
-        }
-        return self::$conexion->jm;
-    }
+  /**
+  * Evita la clonación del objeto
+  */
+  final protected function __clone()
+  {}
 
-    /**
-     * Evita la clonación del objeto
-     */
-    final protected function __clone()
-    {}
-
-    public function _destructor()
-    {
-        self::$conexion = null;
-    }
+  /**
+  * Destruye el objeto
+  */
+  public function _destructor()
+  {
+    self::$conexion = null;
+  }
 }
 ?>
