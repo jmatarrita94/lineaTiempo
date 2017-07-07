@@ -1,7 +1,15 @@
 <?php
 include('mysql_connect.php');
+/**
+* Clase que contiene los métodos de las consultas para manipular los metadatos de los gráficos
+**/
 class graficosUsuario extends dbConn
 {
+	/**
+	* Retorna el nombre de los gráficos del usuario de ID ingresado
+	* @param id del usuario
+	* @return JSON con los resultados
+	**/
     public function getGraficosPorIDUsuario($idUsr) {
         try {
             $dbMySQL = new dbConn;
@@ -15,16 +23,20 @@ class graficosUsuario extends dbConn
             $result = "Error: " . $e->getMessage();
         }
 
-        //Queries database with prepared statement
         return $result;
     }
 
-    public function getGraficoPorID($id) {
+	/**
+	* Retorna los datos del gráfico del ID ingresado
+	* @param id del gráfico
+	* @return JSON con los resultados
+	**/
+    public function getGraficoPorID($idGraf) {
       try {
           $dbMySQL = new dbConn;
-
+			
           $stmt = $dbMySQL->conn->prepare("SELECT * FROM graficosusuario WHERE idGrafico = :myid");
-          $stmt->bindParam(':myid', $id);
+          $stmt->bindParam(':myid', $idGraf);
           $stmt->execute();
           $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -32,18 +44,32 @@ class graficosUsuario extends dbConn
           $result = "Error: " . $e->getMessage();
       }
 
-      //Queries database with prepared statement
       return $result;
     }
-
-    public function insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
+	
+	/**
+	* Inserta un gráfico con los parámetros ingresados
+	* @param idUsr el ID del usuario
+	* @param nombreGrafico el nombre del gráfico
+	* @param fechaCreacion la fecha de creación del gráfico
+	* @param tipoConsulta el tipo de consulta realizada
+	* @param fechaInicio la fecha inicial del rango de consulta
+	* @param fechaFinal la fecha final del rango de consulta
+	* @param puntoMuestreo el punto de muestreo de la consulta
+	* @param tipoGrafico el tipo de gráfico
+	* @param primerPar el primer parámetro de consulta
+	* @param segundoPar el segundo parámetro de consulta
+	* @return true si se insertó correctamente
+	**/
+    public function insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
       try {
         $dbMySQL = new dbConn;
-        $stmt = $dbMySQL->conn->prepare("INSERT INTO graficosUsuario(idUsuario,nombreGrafico,fechaCreacion,fechaInicio,fechaFinal,puntoMuestreo,tipoGrafico,primerParametro,segundoParametro)
-        VALUES (:idU,:nGrafico,:fCreacion,:fInicio,:fFinal,:pMuestreo,:tGrafico,:pPar,:sPar)");
+        $stmt = $dbMySQL->conn->prepare("INSERT INTO graficosUsuario(idUsuario,nombreGrafico,fechaCreacion,tipoConsulta,fechaInicio,fechaFinal,puntoMuestreo,tipoGrafico,primerParametro,segundoParametro)
+        VALUES (:idU,:nGrafico,:fCreacion,:tConsulta,:fInicio,:fFinal,:pMuestreo,:tGrafico,:pPar,:sPar)");
         $stmt->bindParam(':idU',$idUsr);
         $stmt->bindParam(':nGrafico',$nombreGrafico);
         $stmt->bindParam(':fCreacion',$fechaCreacion);
+        $stmt->bindParam(':tConsulta',$tipoConsulta);
         $stmt->bindParam(':fInicio',$fechaInicio);
         $stmt->bindParam(':fFinal',$fechaFinal);
         $stmt->bindParam(':pMuestreo',$puntoMuestreo);
@@ -56,7 +82,6 @@ class graficosUsuario extends dbConn
       } catch (PDOException $e) {
         $err = "Error: " . $e->getMessage();
       }
-      //Determines returned value ('true' or error code)
       if ($err == '') {
           $success = 'true';
       } else {
@@ -65,33 +90,64 @@ class graficosUsuario extends dbConn
       return $success;
     }
 
-    public function modificarGrafico($idGrafico,$nombreGrafico,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
+	/**
+	* Modifica los datos de un gráfico con los parámetros ingresados
+	* @param idGrafico el ID del gráfico
+	* @param nombreGrafico el nombre del gráfico
+	* @param tipoConsulta el tipo de consulta realizada
+	* @param fechaInicio la fecha inicial del rango de consulta
+	* @param fechaFinal la fecha final del rango de consulta
+	* @param puntoMuestreo el punto de muestreo de la consulta
+	* @param tipoGrafico el tipo de gráfico
+	* @param primerPar el primer parámetro de consulta
+	* @param segundoPar el segundo parámetro de consulta
+	* @return true si se realizó el cambio correctamente
+	**/
+    public function modificarGrafico($idGrafico,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
       try {
         $dbMySQL = new dbConn;
-        $stmt = $dbMySQL->conn->prepare("UPDATE graficosUsuario
-        SET nombreGrafico = :nGrafico,
-            fechaInicio = :fInicio,
-            fechaFinal = :fFinal,
-            puntoMuestreo = :pMuestreo,
-            tipoGrafico = :tGrafico,
-            primerParametro = :pPar,
-            segundoParametro = :sPar
-        WHERE idGrafico = :idGraf");
-        $stmt->bindParam(':idGraf',$idGrafico);
-        $stmt->bindParam(':nGrafico',$nombreGrafico);
-        $stmt->bindParam(':fInicio',$fechaInicio);
-        $stmt->bindParam(':fFinal',$fechaFinal);
-        $stmt->bindParam(':pMuestreo',$puntoMuestreo);
-        $stmt->bindParam(':tGrafico',$tipoGrafico);
-        $stmt->bindParam(':pPar',$primerPar);
-        $stmt->bindParam(':sPar',$segundoPar);
+		if ($tipoConsulta == "Fecha") {
+			$stmt = $dbMySQL->conn->prepare("UPDATE graficosUsuario
+			SET nombreGrafico = :nGrafico,
+				tipoConsulta = :tConsulta,
+				fechaInicio = :fInicio,
+				fechaFinal = :fFinal,
+				tipoGrafico = :tGrafico,
+				primerParametro = :pPar,
+				segundoParametro = :sPar
+			WHERE idGrafico = :idGraf");
+			$stmt->bindParam(':idGraf',$idGrafico);
+			$stmt->bindParam(':nGrafico',$nombreGrafico);
+			$stmt->bindParam(':tConsulta',$tipoConsulta);
+			$stmt->bindParam(':fInicio',$fechaInicio);
+			$stmt->bindParam(':fFinal',$fechaFinal);
+			$stmt->bindParam(':tGrafico',$tipoGrafico);
+			$stmt->bindParam(':pPar',$primerPar);
+			$stmt->bindParam(':sPar',$segundoPar);
+		} else {
+			$stmt = $dbMySQL->conn->prepare("UPDATE graficosUsuario
+			SET nombreGrafico = :nGrafico,
+				tipoConsulta = :tConsulta,
+				puntoMuestreo = :pMuestreo,
+				tipoGrafico = :tGrafico,
+				primerParametro = :pPar,
+				segundoParametro = :sPar
+			WHERE idGrafico = :idGraf");
+			$stmt->bindParam(':idGraf',$idGrafico);
+			$stmt->bindParam(':nGrafico',$nombreGrafico);
+			$stmt->bindParam(':tConsulta',$tipoConsulta);
+			$stmt->bindParam(':pMuestreo',$puntoMuestreo);
+			$stmt->bindParam(':tGrafico',$tipoGrafico);
+			$stmt->bindParam(':pPar',$primerPar);
+			$stmt->bindParam(':sPar',$segundoPar);
+		}
+        
         $stmt->execute();
 
         $err = '';
       } catch (PDOException $e) {
         $err = "Error: " . $e->getMessage();
       }
-      //Determines returned value ('true' or error code)
       if ($err == '') {
           $success = 'true';
       } else {
@@ -100,6 +156,11 @@ class graficosUsuario extends dbConn
       return $success;
     }
 
+	/**
+	* Elimina el gráfico de ID ingresado
+	* @param el ID del gráfico
+	* @return true si se eliminó correctamente
+	**/
     public function eliminarGrafico($id) {
       try {
         $dbMySQL = new dbConn;
@@ -111,7 +172,6 @@ class graficosUsuario extends dbConn
       } catch (PDOException $e) {
         $err = "Error: " . $e->getMessage();
       }
-      //Determines returned value ('true' or error code)
       if ($err == '') {
           $success = 'true';
       } else {

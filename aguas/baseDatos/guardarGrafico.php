@@ -1,5 +1,8 @@
 <?php
 include('graficosUsuario.php');
+/**
+* Inserta los metadatos del grafico en la tabla graficosUsuario, de acuerdo al tipo de consulta realizada 
+**/
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['nombreGrafico']) && isset($_POST['fechaCreacion']) && isset($_POST['tipoGrafico']) && isset($_POST['primerPar']) && isset($_POST['tipoConsulta'])) {
 
@@ -19,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($tipoGrafico == "Burbuja") {
           if (isset($_POST['segundoPar'])) {
             $segundoPar = $_POST['segundoPar'];
-            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,$segundoPar);
+			//Insertar un gráfico de burbujas, consultado por rango de fechas
+            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,$segundoPar);
 
             print json_encode($datos);
           } else {
@@ -30,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             );
           }
         } else {
-          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,null);
+		  //Insertar un gráfico consultado por rango de fechas
+          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,null);
           print json_encode($datos);
         }
       } else {
@@ -46,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($tipoGrafico == "Burbuja") {
           if (isset($_POST['segundoPar'])) {
             $segundoPar = $_POST['segundoPar'];
-
-            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar);
+			//Insertar un gráfico de burbuja, consultado por punto de muestreo
+            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar);
             print json_encode($datos);
           } else {
             print json_encode(
@@ -57,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             );
           }
         } else {
-          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,null);
+		  //Insertar un gráfico, consultado por punto de muestreo
+          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,null);
           print json_encode($datos);
         }
       } else {
