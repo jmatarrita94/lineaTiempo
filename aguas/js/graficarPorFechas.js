@@ -461,7 +461,7 @@ function llenarScrollFechas() {
 /**
 * Crea un gráfico según el tipo de consulta realizada y sus respectivos parámetros
 **/
-function graficar() {
+function graficar(tConsulta) {
 	document.getElementById('scrollFechas').style.display = 'none'; //Ocultar scroll de fechas
 	//Reinicializar canvas del gráfico
 	$('#myChart').remove();
@@ -479,6 +479,8 @@ function graficar() {
 	ctx.canvas.width = 1200;
 	ctx.canvas.height = 400;
 	var arrayOfObjects = [];
+	if (tConsulta == "Fechas") graficoNombre = false;
+	else if (tConsulta == "Nombres") graficoNombre = true;
 
 	/** Obtener variables de la página **/
 	var fechaIni = new Date(document.getElementById('fechaI').value).getTime();
@@ -662,5 +664,9 @@ function cambiarTipoGrafico(tipoGrafico) {
 	} else {
 		document.getElementById('comboParametros2').style.display = 'block';
 	}
-	if (graficoGenerado) graficar();
+	if (graficoGenerado) 
+		if (graficoNombre)
+			graficar("Nombres");
+		else
+			graficar("Fechas");
 }

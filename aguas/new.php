@@ -15,12 +15,12 @@
       <form action="/action_page.php">
         <div id="comboPuntos"></div>
         <script>llenarPuntos();</script><br>
-        Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) graficar();"><br>
-        Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) graficar();"><br>
+        Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) graficar('Fechas');"><br>
+        Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) graficar('Nombres');"><br>
       </form>
       <script src="js/graficarPorFechas.js"></script>
-      <button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficoNombre = false; graficar();">Consulta por Fechas</button>
-      <button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficoNombre = true; graficar();">Consulta por Punto de Muestreo</button>
+      <button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficar('Fechas');">Consulta por Fechas</button>
+      <button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficar('Nombres');">Consulta por Punto de Muestreo</button>
       <br>
       <br>
     </div>
