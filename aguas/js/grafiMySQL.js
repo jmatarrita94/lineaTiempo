@@ -117,4 +117,5 @@ function cargarGrafi() {
 	
 	/** Graficar según el tipo de consulta **/
 	graficar(datosGrafico.tipoConsulta);
+	document.getElementById('nombreGrafico').value = datosGrafico.nombreGrafico;
 }
