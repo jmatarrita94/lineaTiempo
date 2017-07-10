@@ -58,9 +58,9 @@
         win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
       }
       </script>
-      <script src="js/guardarGrafi.js"></script>
+      <script src="js/grafiMySQL.js"></script>
       <button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
-      <button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar en "Gr&aacuteficos guardados"</button>
+      <button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar Gr&aacutefico"</button>
     </div>
   </div>
 
