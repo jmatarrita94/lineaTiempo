@@ -389,7 +389,7 @@ function graficar(tConsulta) {
 		document.getElementById('btnGraficoNombre').disabled = false;
 	}
 	//Mostar el textbox para el nombre y los botones para guardar
-	document.getElementById('textboxNombreGrafico').style.display = 'block';
+	document.getElementById('infoGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';
 }
 

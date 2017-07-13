@@ -36,9 +36,14 @@
     </div>
   </div>
 
-  <!-- Nombre del gráfico -->
-  <div class="row" id=textboxNombreGrafico style="display: none">
-    Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>
+  <!-- Información del gráfico -->
+  <div id =infoGrafico style="display: none">
+	  <div class="row" id=textboxNombreGrafico>
+		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120>
+	  </div>
+	  <div class="row" id=textboxDescripcion>
+		Descripci&oacuten del gr&aacutefico:&nbsp<input type="text" id="descripcionGrafico" size=120>
+	  </div>
   </div>
 
   <!-- Canvas del gráfico -->

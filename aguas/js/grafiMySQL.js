@@ -3,7 +3,8 @@
 **/
 function guardarGrafi() {
 	/** Obtener parámetros básicos **/
-	var nombreGrafico = document.getElementById('nombreGrafico').value;
+	var nombreGrafico = document.getElementById('nombreGrafico').value;	
+	var descripcion = document.getElementById('descripcionGrafico').value;	
 	if (document.getElementById("btnArea").checked) {
 		var tipoGrafico = 'Area';
 	} else if (document.getElementById("btnXY").checked) {
@@ -23,7 +24,8 @@ function guardarGrafi() {
 				'&fechaFinal=' + fechaFinal +
 				'&tipoGrafico=' + tipoGrafico +
 				'&primerPar=' + primerPar +
-				'&tipoConsulta=Fechas';
+				'&tipoConsulta=Fechas' + 
+				'&descripcion=' + descripcion;
 		if (tipoGrafico == "Burbuja") {
 			var segundoPar = document.getElementById("parametro2").value;
 			urlPHP += '&segundoPar=' + segundoPar;
@@ -35,7 +37,8 @@ function guardarGrafi() {
 				'&puntoMuestreo=' + puntoMuestreo +
 				'&tipoGrafico=' + tipoGrafico +
 				'&primerPar=' + primerPar +
-				'&tipoConsulta=Nombre';
+				'&tipoConsulta=Nombre' + 
+				'&descripcion=' + descripcion;
 		if (tipoGrafico == "Burbuja") {
 			var segundoPar = document.getElementById("parametro2").value;
 			urlPHP += '&segundoPar=' + segundoPar;
@@ -115,4 +118,5 @@ function cargarGrafi() {
 	/** Graficar según el tipo de consulta **/
 	graficar(datosGrafico.tipoConsulta);
 	document.getElementById('nombreGrafico').value = datosGrafico.nombreGrafico;
+	document.getElementById('descripcionGrafico').value = datosGrafico.descripcion;
 }

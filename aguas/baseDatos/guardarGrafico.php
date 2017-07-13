@@ -4,10 +4,11 @@ include('graficosUsuario.php');
 * Inserta los metadatos del grafico en la tabla graficosUsuario, de acuerdo al tipo de consulta realizada 
 **/
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (isset($_POST['nombreGrafico']) && isset($_POST['tipoGrafico']) && isset($_POST['primerPar']) && isset($_POST['tipoConsulta'])) {
+  if (isset($_POST['nombreGrafico']) && isset($_POST['descripcion']) &&  isset($_POST['tipoGrafico']) && isset($_POST['primerPar']) && isset($_POST['tipoConsulta'])) {
 
     $idUsr = 2;
     $nombreGrafico = $_POST['nombreGrafico'];
+	$descripcion = $_POST['descripcion'];
     $tipoGrafico = $_POST['tipoGrafico'];
     $primerPar = $_POST['primerPar'];
     $tipoConsulta = $_POST['tipoConsulta'];
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           if (isset($_POST['segundoPar'])) {
             $segundoPar = $_POST['segundoPar'];
 			//Insertar un gráfico de burbujas, consultado por rango de fechas
-            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,$segundoPar);
+            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$descripcion,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,$segundoPar);
 
             print json_encode($datos);
           } else {
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           }
         } else {
 		  //Insertar un gráfico consultado por rango de fechas
-          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,null);
+          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$descripcion,$tipoConsulta,$fechaInicio,$fechaFinal,null,$tipoGrafico,$primerPar,null);
           print json_encode($datos);
         }
       } else {
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           if (isset($_POST['segundoPar'])) {
             $segundoPar = $_POST['segundoPar'];
 			//Insertar un gráfico de burbuja, consultado por punto de muestreo
-            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar);
+            $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$descripcion,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar);
             print json_encode($datos);
           } else {
             print json_encode(
@@ -62,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           }
         } else {
 		  //Insertar un gráfico, consultado por punto de muestreo
-          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,null);
+          $datos = graficosUsuario::insertarGrafico($idUsr,$nombreGrafico,$descripcion,$tipoConsulta,null,null,$puntoMuestreo,$tipoGrafico,$primerPar,null);
           print json_encode($datos);
         }
       } else {
