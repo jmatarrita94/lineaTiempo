@@ -35,7 +35,7 @@ class graficosUsuario extends dbConn
       try {
           $dbMySQL = new dbConn;
 			
-          $stmt = $dbMySQL->conn->prepare("SELECT * FROM graficosusuario WHERE idGrafico = :myid");
+          $stmt = $dbMySQL->conn->prepare("SELECT * FROM graficosusuario WHERE fechaCreacion = :myid");
           $stmt->bindParam(':myid', $idGraf);
           $stmt->execute();
           $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,14 +61,13 @@ class graficosUsuario extends dbConn
 	* @param segundoPar el segundo parámetro de consulta
 	* @return true si se insertó correctamente
 	**/
-    public function insertarGrafico($idUsr,$nombreGrafico,$fechaCreacion,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
+    public function insertarGrafico($idUsr,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
       try {
         $dbMySQL = new dbConn;
-        $stmt = $dbMySQL->conn->prepare("INSERT INTO graficosUsuario(idUsuario,nombreGrafico,fechaCreacion,tipoConsulta,fechaInicio,fechaFinal,puntoMuestreo,tipoGrafico,primerParametro,segundoParametro)
-        VALUES (:idU,:nGrafico,:fCreacion,:tConsulta,:fInicio,:fFinal,:pMuestreo,:tGrafico,:pPar,:sPar)");
+        $stmt = $dbMySQL->conn->prepare("INSERT INTO graficosUsuario(idUsuario,nombreGrafico,tipoConsulta,fechaInicio,fechaFinal,puntoMuestreo,tipoGrafico,primerParametro,segundoParametro)
+        VALUES (:idU,:nGrafico,:tConsulta,:fInicio,:fFinal,:pMuestreo,:tGrafico,:pPar,:sPar)");
         $stmt->bindParam(':idU',$idUsr);
         $stmt->bindParam(':nGrafico',$nombreGrafico);
-        $stmt->bindParam(':fCreacion',$fechaCreacion);
         $stmt->bindParam(':tConsulta',$tipoConsulta);
         $stmt->bindParam(':fInicio',$fechaInicio);
         $stmt->bindParam(':fFinal',$fechaFinal);
@@ -103,7 +102,7 @@ class graficosUsuario extends dbConn
 	* @param segundoPar el segundo parámetro de consulta
 	* @return true si se realizó el cambio correctamente
 	**/
-    public function modificarGrafico($idGrafico,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
+    public function modificarGrafico($fechaCreacion,$nombreGrafico,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
       try {
         $dbMySQL = new dbConn;
 		if ($tipoConsulta == "Fecha") {
@@ -115,8 +114,8 @@ class graficosUsuario extends dbConn
 				tipoGrafico = :tGrafico,
 				primerParametro = :pPar,
 				segundoParametro = :sPar
-			WHERE idGrafico = :idGraf");
-			$stmt->bindParam(':idGraf',$idGrafico);
+			WHERE fechaCreacion = :idGraf");
+			$stmt->bindParam(':idGraf',$fechaCreacion);
 			$stmt->bindParam(':nGrafico',$nombreGrafico);
 			$stmt->bindParam(':tConsulta',$tipoConsulta);
 			$stmt->bindParam(':fInicio',$fechaInicio);
@@ -164,7 +163,7 @@ class graficosUsuario extends dbConn
     public function eliminarGrafico($id) {
       try {
         $dbMySQL = new dbConn;
-        $stmt = $dbMySQL->conn->prepare("DELETE FROM graficosUsuario WHERE idGrafico = :idGraf");
+        $stmt = $dbMySQL->conn->prepare("DELETE FROM graficosUsuario WHERE fechaCreacion = :idGraf");
         $stmt->bindParam(':idGraf',$id);
         $stmt->execute();
 

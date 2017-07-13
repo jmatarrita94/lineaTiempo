@@ -4,7 +4,6 @@
 function guardarGrafi() {
 	/** Obtener parámetros básicos **/
 	var nombreGrafico = document.getElementById('nombreGrafico').value;
-	var fechaCreacion = new Date();	
 	if (document.getElementById("btnArea").checked) {
 		var tipoGrafico = 'Area';
 	} else if (document.getElementById("btnXY").checked) {
@@ -15,18 +14,17 @@ function guardarGrafi() {
     var primerPar = document.getElementById("parametro").value;
 	
 	/** Preparar los parámetros para el PHP, según el tipo de gráfico y de consulta **/
-	if (1 > 2) { //if (!graficoNombre) {
+	if (!graficoNombre) {
 		//Consulta por fechas
 		var fechaInicio = new Date(document.getElementById('fechaI').value).getTime();
 		var fechaFinal = new Date(document.getElementById('fechaF').value).getTime();
 		var urlPHP = 'nombreGrafico=' + nombreGrafico +
-				'&fechaCreacion=' + fechaCreacion.getFullYear() + '-' + fechaCreacion.getMonth() + '-' + fechaCreacion.getDate() +
 				'&fechaInicio=' + fechaInicio +
 				'&fechaFinal=' + fechaFinal +
 				'&tipoGrafico=' + tipoGrafico +
 				'&primerPar=' + primerPar +
 				'&tipoConsulta=Fechas';
-		if (tipoGrafico == "Burbuja") {			
+		if (tipoGrafico == "Burbuja") {
 			var segundoPar = document.getElementById("parametro2").value;
 			urlPHP += '&segundoPar=' + segundoPar;
 		}
@@ -34,7 +32,6 @@ function guardarGrafi() {
 		//Consulta por punto de muestreo
 		var puntoMuestreo = document.getElementById("punto").value;
 		var urlPHP = 'nombreGrafico=' + nombreGrafico +
-				'&fechaCreacion=' + fechaCreacion.getFullYear() + '-' + fechaCreacion.getMonth() + '-' + fechaCreacion.getDate() +
 				'&puntoMuestreo=' + puntoMuestreo +
 				'&tipoGrafico=' + tipoGrafico +
 				'&primerPar=' + primerPar +
@@ -81,7 +78,7 @@ function marcarCombo(combo,parametro) {
 **/
 function cargarGrafi() {
 	/** Obtener ID del gráfico y los datos correspondientes **/
-	var idGrafico = '2017-07-05 21:40:44'; //Obtener de la página
+	var idGrafico = '2017-07-13 10:38:34'; //Obtener de la página
 	var datosGrafico = [];
 	$.ajax({
         url: "baseDatos/cargarGrafico.php?idGrafico=" + idGrafico,

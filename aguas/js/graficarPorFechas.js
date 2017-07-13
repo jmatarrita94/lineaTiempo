@@ -201,6 +201,7 @@ function llenarScrollFechas() {
 **/
 function graficar(tConsulta) {
 	document.getElementById('scrollFechas').style.display = 'none'; //Ocultar scroll de fechas
+	document.getElementById("btnGuardarMongo").disabled = false;
 	//Reinicializar canvas del gráfico
 	$('#myChart').remove();
 	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
