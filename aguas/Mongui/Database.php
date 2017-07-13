@@ -38,10 +38,11 @@ class Database
   public function getDb()
   {
     if (self::$conexion == null) {
-      self::$conexion = new MongoDB\Client('mongodb://' .
-      USERNAME . ':' . PASSWORD .
-      '@' . HOST_IP . ':' . PORT
-    );
+		  self::$conexion = new MongoDB\Client('mongodb://' .
+		  USERNAME . ':' . PASSWORD .
+		  '@' . HOST_IP . ':' . PORT
+		);
+	}
     // self::$conexion = new MongoDB\Client();
     return self::$conexion->jm;
   }

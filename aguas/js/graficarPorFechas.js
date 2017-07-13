@@ -7,130 +7,107 @@ var fechasN = [];
 var indices = [];
 var indices2 = [];
 var nombres = [];
+var colores = [];
+var coloresUsados = [];
+var datasets = [];
 var graficoGenerado = false;
 var graficoNombre = false;
+
+/**
+*
+**/
+function generarColor(){
+		
+	if(colores.length == 0)
+	{
+		var color1 = (Math.floor(Math.random() * 256));
+		var color2 = (Math.floor(Math.random() * 256));
+		var color3 = (Math.floor(Math.random() * 256));
+		var colorPunto = "rgba(" + color1 + "," + color2 + "," + color3 + ","+ 0.4 +")";
+		var colorUsado = color1 + "," + color2 + "," + color3;
+		coloresUsados.push(colorUsado);
+		colores.push(colorPunto);
+	}
+	else {
+		var color1 = (Math.floor(Math.random() * 256));
+		var color2 = (Math.floor(Math.random() * 256));
+		var color3 = (Math.floor(Math.random() * 256));
+		while(colorRepetido(color1,color2,color3)){
+			var color1 = (Math.floor(Math.random() * 256));
+			var color2 = (Math.floor(Math.random() * 256));
+			var color3 = (Math.floor(Math.random() * 256));
+		}
+		var colorPunto = "rgba(" + color1 + "," + color2 + "," + color3 + ","+ 0.4 +")";
+		var colorUsados = color1 + "," + color2 + "," + color3;
+		coloresUsados.push(coloresUsados);
+		colores.push(colorPunto);		
+	}	
+		
+}
+	
+/**
+*
+**/	
+function colorRepetido(color1,color2,color3){
+	var repetido = false;
+	var tamano = 0;
+	while(tamano < colores.length && !repetido){
+		var color = colores[tamano].split(",");
+		if(color[0] == color1 && color[1] == color2 && color[2]==color3){
+			repetido = true;
+		}
+		else {
+			tamano++;
+		}
+	}
+	return repetido; 
+}
 
 /**
 * Crea el dataset para el graficador cuando se pide un gráfico de burbuja
 * @return Un arreglo con los datos a graficar
 **/
-function datosBurbujaF() {
+function datosBurbujaF() {	
+	colores = [];
+	coloresUsados = [];
 	if (!graficoNombre) {
-		//Si se está graficando por rango de fechas
 		for (var i = 0 ; i < fechasN.length ; i++) {
-			datosBurbuja[i] = {datasets: [{
+			datasets = [];
+			for (var c = 0; c < nombres.length; c++)
+				generarColor();
+			for (var j = 0 ; j < nombres.length ; j++) {
+				var array = {
+					"label": nombres[j], 
+					"data" : [{
+						"x": fechasN[i],
+						"y": indices[j][i],
+						"r": indices2[j][i]
+					}],
+				"backgroundColor": colores[j]
+				};
+				datasets.push(array);
+			}
+			datosBurbuja[i] = {datasets: datasets};
+		}
+		return datosBurbuja[indFechaAct];		
+	} else {
+		generarColor();
+		datasets = [];
+		for (var i = 0 ; i < fechasN.length ; i++) {
+			var array = {
+				"x": fechasN[i],
+				"y": indices[0][i],
+				"r": indices2[0][i]
+			};
+			datasets.push(array);
+		}
+		return {datasets: [{
 				label: nombres[0],
-				data: [{
-					x: fechasN[i],
-					y: indices[0][i],
-					r: indices2[0][i]
-				}],
-				backgroundColor: "rgba(255, 0, 0, 0.4)"
-			},{
-				label: nombres[1],
-				data: [{
-					x: fechasN[i],
-					y: indices[1][i],
-					r: indices2[1][i]
-				}],
-				backgroundColor: "rgba(237, 180, 183,0.4)"
-			},{
-				label: nombres[2],
-				data: [{
-					x: fechasN[i],
-					y: indices[2][i],
-					r: indices2[2][i]
-				}],
-				backgroundColor: "rgba(0, 255, 0, 0.4)"
-			},{
-				label: nombres[3],
-				data: [{
-					x: fechasN[i],
-					y: indices[3][i],
-					r: indices2[3][i]
-				}],
-				backgroundColor: "rgba(0,0,255,0.4)"
-			},{
-				label: nombres[4],
-				data: [{
-					x: fechasN[i],
-					y: indices[4][i],
-					r: indices2[4][i]
-				}],
-				backgroundColor: "rgba(0,0,255,0.4)"
-			},{
-				label: nombres[5],
-				data: [{
-					x: fechasN[i],
-					y: indices[5][i],
-					r: indices2[5][i]
-				}],
-				backgroundColor: "rgba(188, 0, 190,0.4)"
-			},{
-				label: nombres[6],
-				data: [{
-					x: fechasN[i],
-					y: indices[6][i],
-					r: indices2[6][i]
-				}],
-				backgroundColor: "rgba(1, 188, 190,0.4)"
-			},{
-				label: nombres[7],
-				data: [{
-					x: fechasN[i],
-					y: indices[7][i],
-					r: indices2[7][i]
-				}],
-				backgroundColor: "rgba(219, 216, 0,0.4)"
-			},{
-				label: nombres[8],
-				data: [{
-					x: fechasN[i],
-					y: indices[8][i],
-					r: indices2[8][i]
-				}],
-				backgroundColor: "rgba(254, 132, 10,0.4)"
-			},{
-				label: nombres[9],
-				data: [{
-					x: fechasN[i],
-					y: indices[9][i],
-					r: indices2[9][i]
-				}],
-				backgroundColor: "rgba(153,255,51,0.4)"
-			}]
+				data: datasets,
+				backgroundColor: colores[0]
+				}]
 		};
 	}
-	return datosBurbuja[indFechaAct];
-} else {
-	//Si se está graficando por punto de muestreo
-	return {datasets: [{
-		label: nombres[0],
-		data: [{
-			x: fechasN[0],
-			y: indices[0][0],
-			r: indices2[0][0]
-		}, {
-			x: fechasN[1],
-			y: indices[0][1],
-			r: indices2[0][1]
-		}, {
-			x: fechasN[2],
-			y: indices[0][2],
-			r: indices2[0][2]
-		}, {
-			x: fechasN[3],
-			y: indices[0][3],
-			r: indices2[0][3]
-		}, {
-			x: fechasN[4],
-			y: indices[0][4],
-			r: indices2[0][4]
-		}],
-		backgroundColor: "rgba(255, 0, 0, 0.4)"
-	}]
-};
-}
 }
 
 /**
@@ -138,133 +115,19 @@ function datosBurbujaF() {
 * @return Un arreglo con los datos a graficar
 **/
 function datosAreaF() {
-	if (!graficoNombre) {
-		//Si es un gráfico por rango de fechas
-		return {
-			labels: fechas,
-			datasets: [
-				{
-					label: nombres[0],
-					// fillColor: "rgba(220,220,220,0.2)",
-					// strokeColor: "rgba(220,220,220,1)",
-					// pointColor: "rgba(220,220,220,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(220,220,220,1)",
-					backgroundColor: "rgba(255, 0, 0, 0.4)",
-					data: indices[0]
-				}, {
-					label: nombres[1],
-					// fillColor: "rgba(151,187,205,0.2)",
-					// strokeColor: "rgba(151,187,205,1)",
-					// pointColor: "rgba(151,187,205,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(151,187,205,1)",
-					backgroundColor: "rgba(237, 180, 183,0.4)",
-					data: indices[1]
-				}, {
-					label: nombres[2],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(0, 255, 0, 0.4)",
-					data: indices[2]
-				}, {
-					label: nombres[3],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(0,0,255,0.4)",
-					data: indices[3]
-				}, {
-					label: nombres[4],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(154, 153, 194,0.4)",
-					data: indices[4]
-				}, {
-					label: nombres[5],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(188, 0, 190,0.4)",
-					data: indices[5]
-				}, {
-					label: nombres[6],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(1, 188, 190,0.4)",
-					data: indices[6]
-				}, {
-					label: nombres[7],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(219, 216, 0,0.4)",
-					data: indices[7]
-				}, {
-					label: nombres[8],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(254, 132, 10,0.4)",
-					data: indices[8]
-				}, {
-					label: nombres[9],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					backgroundColor: "rgba(153,255,51,0.4)",
-					data: indices[9]
-				}
-			]
-		};
-	} else {
-		//Si es un gráfico por punto de muestreo
-		return {
-			labels: fechas,
-			datasets: [
-				{
-					label: nombres[0],
-					// fillColor: "rgba(220,220,220,0.2)",
-					// strokeColor: "rgba(220,220,220,1)",
-					// pointColor: "rgba(220,220,220,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(220,220,220,1)",
-					backgroundColor: "rgba(255, 0, 0, 0.4)",
-					data: indices[0]
-				}
-			]
-		};
+	colores = [];
+	coloresUsados = [];
+	datasets = [];
+	for (var i = 0; i < nombres.length; i++)
+		generarColor();
+	
+	var datasets = [];
+	for (var i = 0; i < nombres.length; i++) {
+		var array = {"label": nombres[i], "backgroundColor": colores[i], "data":indices[i]};
+		datasets.push(array);
 	}
+	return {labels: fechas,
+			datasets: datasets};
 }
 
 /**
@@ -272,144 +135,19 @@ function datosAreaF() {
 * @return Un arreglo con los datos a graficar
 **/
 function datosXYF() {
-	if (!graficoNombre) {
-		//Si es un gráfico por rango de fechas
-		return {
-			labels: fechas,
-			datasets: [
-				{
-					label: nombres[0],
-					// fillColor: "rgba(220,220,220,0.2)",
-					// strokeColor: "rgba(220,220,220,1)",
-					// pointColor: "rgba(220,220,220,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(220,220,220,1)",
-					borderColor: "rgba(255, 0, 0, 0.4)",
-					fill: false,
-					data: indices[0]
-				}, {
-					label: nombres[1],
-					// fillColor: "rgba(151,187,205,0.2)",
-					// strokeColor: "rgba(151,187,205,1)",
-					// pointColor: "rgba(151,187,205,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(151,187,205,1)",
-					borderColor: "rgba(237, 180, 183,0.4)",
-					fill: false,
-					data: indices[1]
-				}, {
-					label: nombres[2],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(0, 255, 0, 0.4)",
-					fill: false,
-					data: indices[2]
-				}, {
-					label: nombres[3],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(0,0,255,0.4)",
-					fill: false,
-					data: indices[3]
-				}, {
-					label: nombres[4],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(154, 153, 194,0.4)",
-					fill: false,
-					data: indices[4]
-				}, {
-					label: nombres[5],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(188, 0, 190,0.4)",
-					fill: false,
-					data: indices[5]
-				}, {
-					label: nombres[6],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(1, 188, 190,0.4)",
-					fill: false,
-					data: indices[6]
-				}, {
-					label: nombres[7],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(219, 216, 0,0.4)",
-					fill: false,
-					data: indices[7]
-				}, {
-					label: nombres[8],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(254, 132, 10,0.4)",
-					fill: false,
-					data: indices[8]
-				}, {
-					label: nombres[9],
-					// fillColor: "rgba(255,153,0,0.4)",
-					// strokeColor: "rgba(255,153,0,0.4)",
-					// pointColor: "rgba(255,153,0,0.4)",
-					// pointStrokeColor: "#103",
-					// pointHighlightFill: "#a12",
-					// pointHighlightStroke: "rgba(255,153,0,0.4)",
-					borderColor: "rgba(153,255,51,0.4)",
-					fill: false,
-					data: indices[9]
-				}
-			]
-		};
-	} else {
-		//Si es un gráfico por punto de muestreo
-		return {
-			labels: fechas,
-			datasets: [
-				{
-					label: nombres[0],
-					// fillColor: "rgba(220,220,220,0.2)",
-					// strokeColor: "rgba(220,220,220,1)",
-					// pointColor: "rgba(220,220,220,1)",
-					// pointStrokeColor: "#fff",
-					// pointHighlightFill: "#fff",
-					// pointHighlightStroke: "rgba(220,220,220,1)",
-					borderColor: "rgba(255, 0, 0, 0.4)",
-					fill: false,
-					data: indices[0]
-				}
-			]
-		};
+	colores = [];
+	coloresUsados = [];
+	datasets = [];
+	for (var i = 0; i < nombres.length; i++)
+		generarColor();
+	
+	var datasets = [];
+	for (var i = 0; i < nombres.length; i++) {
+		var array = {"label": nombres[i], "borderColor": colores[i], "fill": false, "data":indices[i]};
+		datasets.push(array);
 	}
+	return {labels: fechas,
+			datasets: datasets};
 }
 
 /**

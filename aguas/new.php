@@ -60,7 +60,7 @@
       </script>
       <script src="js/grafiMySQL.js"></script>
       <button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
-      <button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar Gr&aacutefico"</button>
+      <button onclick="guardarGrafi()" id="btnGuardarMongo" class="button btn btn-primary mt-4">Guardar Gr&aacutefico</button>
     </div>
   </div>
 
