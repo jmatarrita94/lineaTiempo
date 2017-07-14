@@ -37,7 +37,7 @@ function guardarGrafi() {
 				'&puntoMuestreo=' + puntoMuestreo +
 				'&tipoGrafico=' + tipoGrafico +
 				'&primerPar=' + primerPar +
-				'&tipoConsulta=Nombre' + 
+				'&tipoConsulta=Nombres' + 
 				'&descripcion=' + descripcion;
 		if (tipoGrafico == "Burbuja") {
 			var segundoPar = document.getElementById("parametro2").value;
@@ -52,9 +52,8 @@ function guardarGrafi() {
         cache: false,
 		data: urlPHP,
 		success: function( data ) {
-				console.log(data);
 				alert("Gráfico guardado correctamente.");
-				document.getElementById("btnGuardarMongo").disabled = true;
+				document.getElementById("btnGuardarGraf").disabled = true;
 		}
 	});
 }
@@ -81,7 +80,6 @@ function marcarCombo(combo,parametro) {
 **/
 function cargarGrafi() {
 	/** Obtener ID del gráfico y los datos correspondientes **/
-	var idGrafico = '2017-07-13 10:38:34'; //Obtener de la página
 	var datosGrafico = [];
 	$.ajax({
         url: "baseDatos/cargarGrafico.php?idGrafico=" + idGrafico,
@@ -119,4 +117,83 @@ function cargarGrafi() {
 	graficar(datosGrafico.tipoConsulta);
 	document.getElementById('nombreGrafico').value = datosGrafico.nombreGrafico;
 	document.getElementById('descripcionGrafico').value = datosGrafico.descripcion;
+}
+
+/**
+* Guarda los cambios hechos a los metadatos de un gráfico cargado
+**/
+function modificarGrafi() {
+	/** Obtener parámetros básicos **/
+	var nombreGrafico = document.getElementById('nombreGrafico').value;	
+	var descripcion = document.getElementById('descripcionGrafico').value;
+	if (document.getElementById("btnArea").checked) {
+		var tipoGrafico = 'Area';
+	} else if (document.getElementById("btnXY").checked) {
+		var tipoGrafico = 'XY';
+	} else {
+		var tipoGrafico = 'Burbuja';
+	}	
+    var primerPar = document.getElementById("parametro").value;
+	
+	/** Preparar los parámetros para el PHP, según el tipo de gráfico y de consulta **/
+	if (!graficoNombre) {
+		//Consulta por fechas
+		var fechaInicio = new Date(document.getElementById('fechaI').value).getTime();
+		var fechaFinal = new Date(document.getElementById('fechaF').value).getTime();
+		var urlPHP = 'idGrafico=' + idGrafico +
+				'&nombreGrafico=' + nombreGrafico +
+				'&fechaInicio=' + fechaInicio +
+				'&fechaFinal=' + fechaFinal +
+				'&tipoGrafico=' + tipoGrafico +
+				'&primerPar=' + primerPar +
+				'&tipoConsulta=Fechas' + 
+				'&descripcion=' + descripcion;
+		if (tipoGrafico == "Burbuja") {
+			var segundoPar = document.getElementById("parametro2").value;
+			urlPHP += '&segundoPar=' + segundoPar;
+		}
+	} else {
+		//Consulta por punto de muestreo
+		var puntoMuestreo = document.getElementById("punto").value;
+		var urlPHP = 'idGrafico=' + idGrafico +
+				'&nombreGrafico=' + nombreGrafico +
+				'&puntoMuestreo=' + puntoMuestreo +
+				'&tipoGrafico=' + tipoGrafico +
+				'&primerPar=' + primerPar +
+				'&tipoConsulta=Nombres' + 
+				'&descripcion=' + descripcion;
+		if (tipoGrafico == "Burbuja") {
+			var segundoPar = document.getElementById("parametro2").value;
+			urlPHP += '&segundoPar=' + segundoPar;
+		}
+	}
+	
+	/** Llamar al PHP con los parámetros obtenidos **/
+	$.ajax({
+		type: 'POST',
+		url: "baseDatos/modificarGrafico.php",
+        cache: false,
+		data: urlPHP,
+		success: function( data ) {
+				alert("Cambios guardados correctamente.");
+				document.getElementById("btnModGraf").disabled = true;
+		}
+	});
+}
+	
+/**
+* Elimina el gráfico cargado
+**/
+function eliminarGrafi() {
+	/** Llamar al PHP con el id del gráfico **/
+	$.ajax({
+		type: 'POST',
+		url: "baseDatos/borrarGrafico.php",
+        cache: false,
+		data: 'idGrafico=' + idGrafico,
+		success: function( data ) {
+				alert("El gráfico ha sido eliminado correctamente.");
+				window.open("saved.php","_self");
+		}
+	});
 }

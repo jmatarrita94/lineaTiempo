@@ -12,6 +12,7 @@ var coloresUsados = [];
 var datasets = [];
 var graficoGenerado = false;
 var graficoNombre = false;
+var graficoNuevo = true;
 
 /**
 *
@@ -201,7 +202,9 @@ function llenarScrollFechas() {
 **/
 function graficar(tConsulta) {
 	document.getElementById('scrollFechas').style.display = 'none'; //Ocultar scroll de fechas
-	document.getElementById("btnGuardarMongo").disabled = false;
+	if (graficoNuevo) {
+		document.getElementById("btnGuardarGraf").disabled = false;		
+	}
 	//Reinicializar canvas del gráfico
 	$('#myChart').remove();
 	$('#canvasGrafico').append('<canvas id="myChart" width="100%" height="15"></canvas>');
@@ -377,7 +380,6 @@ function graficar(tConsulta) {
 		data: data,
 		options: opciones
 	});
-	graficoGenerado = true;
 
 	/** Mostrar y Ocultar elementos según el tipo de consulta realizada **/
 	//Desactivar el botón del tipo de consulta realizada
@@ -391,6 +393,7 @@ function graficar(tConsulta) {
 	//Mostar el textbox para el nombre y los botones para guardar
 	document.getElementById('infoGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';
+	graficoGenerado = true;
 }
 
 /**
@@ -405,7 +408,7 @@ function cambiarTipoGrafico(tipoGrafico) {
 	}
 	if (graficoGenerado) 
 		if (graficoNombre)
-			graficar("Nombres");
+			graficar("Nombres",true);
 		else
-			graficar("Fechas");
+			graficar("Fechas",true);
 }

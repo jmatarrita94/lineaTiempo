@@ -6,7 +6,7 @@ include('mysql_connect.php');
 class graficosUsuario extends dbConn
 {
 	/**
-	* Retorna el nombre de los gráficos del usuario de ID ingresado
+	* Retorna la fecha de creación, el nombre, la descripción y el tipo de los gráficos del usuario de ID ingresado
 	* @param id del usuario
 	* @return JSON con los resultados
 	**/
@@ -14,7 +14,7 @@ class graficosUsuario extends dbConn
         try {
             $dbMySQL = new dbConn;
 
-            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion FROM graficosusuario WHERE idUsuario = :myid");
+            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid");
             $stmt->bindParam(':myid', $idUsr);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -106,7 +106,7 @@ class graficosUsuario extends dbConn
     public function modificarGrafico($fechaCreacion,$nombreGrafico,$descripcion,$tipoConsulta,$fechaInicio,$fechaFinal,$puntoMuestreo,$tipoGrafico,$primerPar,$segundoPar) {
       try {
         $dbMySQL = new dbConn;
-		if ($tipoConsulta == "Fecha") {
+		if ($tipoConsulta == "Fechas") {
 			$stmt = $dbMySQL->conn->prepare("UPDATE graficosUsuario
 			SET nombreGrafico = :nGrafico,
 				descripcion = :descripcion,
@@ -135,7 +135,7 @@ class graficosUsuario extends dbConn
 				tipoGrafico = :tGrafico,
 				primerParametro = :pPar,
 				segundoParametro = :sPar
-			WHERE idGrafico = :idGraf");
+			WHERE fechaCreacion = :idGraf");
 			$stmt->bindParam(':idGraf',$idGrafico);
 			$stmt->bindParam(':nGrafico',$nombreGrafico);
 			$stmt->bindParam(':descripcion',$descripcion);

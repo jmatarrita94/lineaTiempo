@@ -1,10 +1,22 @@
-<?php require "inc/header.php";?>
+<!-- Guardar el id del Gráfico en una variable -->
+<?php
+	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	  if (isset($_GET['idGrafico'])) {
+		  echo '<script> var idGrafico = "' . $_GET['idGrafico'] . '";</script>';
+	  }
+	} 
+?>
+
 <!-- Scripts requeridos -->
+<?php require "inc/header.php";?>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="js/llenarComboPuntos.js"></script>
+<script src="js/grafiMySQL.js"></script>
+<script src="js/graficador.js"></script>
+<script> graficoNuevo = false; </script>
 
 <!-- Contenedor principal -->
 <div class="container mt-4">
@@ -18,7 +30,6 @@
         Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) graficar('Fechas');"><br>
         Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) graficar('Nombres');"><br>
       </form>
-      <script src="js/graficador.js"></script>
       <button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficar('Fechas');">Consulta por Fechas</button>
       <button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficar('Nombres');">Consulta por Punto de Muestreo</button>
       <br>
@@ -40,10 +51,10 @@
   <script> var vNombre = "Gráfico sin título"; var vDescripcion = "";</script>
   <div id =infoGrafico style="display: none">
 	  <div class="row" id=textboxNombreGrafico>
-		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120 onchange="if(this.value != vNombre) {document.getElementById('btnGuardarGraf').disabled = false; vNombre = this.value;}">
+		Nombre del gr&aacutefico:&nbsp<input type="text" id="nombreGrafico" value="Gráfico sin título" size=120 onchange="if(this.value != vNombre) {document.getElementById('btnModGraf').disabled = false; vNombre = this.value;}">
 	  </div>
 	  <div class="row" id=textboxDescripcion>
-		Descripci&oacuten del gr&aacutefico:&nbsp<input type="text" id="descripcionGrafico" size=120 onchange="if(this.value != vDescripcion) {document.getElementById('btnGuardarGraf').disabled = false; vDescripcion = this.value;}">
+		Descripci&oacuten del gr&aacutefico:&nbsp<input type="text" id="descripcionGrafico" size=120 onchange="if(this.value != vDescripcion) {document.getElementById('btnModGraf').disabled = false; vDescripcion = this.value;}">
 	  </div>
   </div>
 
@@ -57,6 +68,7 @@
 
   <!-- Botones para guardar el gráfico -->
   <div class=row id=botonesGuardar style="display: none">
+
     <div class="col-md-6">
       <script>
       function graficoAImagen(){
@@ -64,99 +76,14 @@
         win.document.write("<b>" + document.getElementById("nombreGrafico").value + "</b><br><img src='"+myChart.toDataURL("image/png")+"'/>");
       }
       </script>
-      <script src="js/grafiMySQL.js"></script>
-      <button onclick="graficoAImagen()" class="button btn btn-primary mt-4">Guardar como imagen</button>
-      <button onclick="guardarGrafi()" id="btnGuardarGraf" class="button btn btn-primary mt-4">Guardar Gr&aacutefico</button>
+      <button onclick="eliminarGrafi()" class="button btn btn-primary mt-4">Eliminar gr&aacutefico</button>
+      <button onclick="modificarGrafi()" id="btnModGraf" class="button btn btn-primary mt-4">Guardar Cambios</button>
     </div>
   </div>
 
   </div>
 
-
-  <!-- <div class="row">
-  <div class="col-12">
-  <h3>
-  Nuevo gráfico
-</h3>
-<hr class="my-3">
-</hr>
-</div>
-<div class="col-md-3">
-<form>
-<h5 class="mt-4">
-Elegir tipo de gráfico
-</h5>
-<div class="form-group">
-<select class="form-control" id="exampleSelect1">
-<option>
-Líneas
-</option>
-<option>
-Barras
-</option>
-<option>
-Burbujas
-</option>
-</select>
-</div>
-<hr class="my-3">
-<h5 class="mt-4">
-Consulta por nombre
-</h5>
-<div class="form-group">
-<input class="form-control" id="nombre" placeholder="Localización" type="text">
-</input>
-</div>
-<button class="btn btn-primary" onclick="graficarPorNombre()">
-Generar
-</button>
-<h5 class="mt-4">
-Consulta por fechas
-</h5>
-<div class="form-group">
-<label for="example-date-input">
-Fecha inicial
-</label>
-<input class="form-control" id="fechaI" type="date" value="2017-01-01">
-</input>
-</div>
-<div class="form-group">
-<label for="example-date-input">
-Fecha final
-</label>
-<input class="form-control" id="fechaF" type="date" value="2017-01-01">
-</input>
-</div>
-<button class="btn btn-primary" onclick="graficar()">
-Generar
-</button>
-<h5 class="mt-4">
-Parámetros a considerar
-</h5>
-<div class="form-check">
-<label class="form-check-label">
-<input class="form-check-input mr-2" type="checkbox" value="">
-Parámetro
-</input>
-</label>
-</div>
-<div class="form-check">
-<label class="form-check-label">
-<input class="form-check-input mr-2" type="checkbox" value="">
-Parámetro
-</input>
-</label>
-</div>
-<button class="btn btn-primary mt-4" type="submit">
-Generar
-</button>
-</hr>
-</form>
-</div>
-<div class="col-md-9">
-<canvas height="15" id="myChart" width="100%">
-</canvas>
-</div>
-</div> -->
+  <!-- Graficar el gráfico cargado -->
+  <script>cargarGrafi();</script>
 
 <?php require "inc/footer.php";?>
