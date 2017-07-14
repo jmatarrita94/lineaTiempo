@@ -39,7 +39,7 @@
                             Gráficos guardados
                         </a>
                         <li class="nav-item dropdown">
-                            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="http://example.com" id="navbarDropdownMenuLink">
+                            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink">
                                 Usuario
                             </a>
                             <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">

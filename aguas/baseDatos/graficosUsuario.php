@@ -14,7 +14,7 @@ class graficosUsuario extends dbConn
         try {
             $dbMySQL = new dbConn;
 
-            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid");
+            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid ORDER BY fechaCreacion");
             $stmt->bindParam(':myid', $idUsr);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

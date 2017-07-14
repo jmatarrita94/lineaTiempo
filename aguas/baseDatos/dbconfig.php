@@ -1,10 +1,10 @@
 <?php
 /** Parámetros de conexión para servidor de XAMMP **/
 $db = array(
-  'hostname' => '104.198.76.218', // IP
-  'username' => 'adminaguas', // Usuario
-  'password' => 'holaaguas', //Contraseña
-  'database' => 'proyectoaguas' //Nombre de base de datos
+  'hostname' => 'localhost', // IP
+  'username' => 'root', // Usuario
+  'password' => '', //Contraseña
+  'database' => 'proyecto-aguas' //Nombre de base de datos
 );
 
 /** Parámetros de conexión para servidor de la ECCI **/

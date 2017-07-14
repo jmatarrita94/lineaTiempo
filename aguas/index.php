@@ -1,4 +1,7 @@
 <?php require "inc/header.php"; ?>
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 <div class="container mt-4">
     <div class="jumbotron text-center">
         <h1 class="display-3">
