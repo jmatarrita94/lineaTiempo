@@ -46,10 +46,11 @@ class LoginForm extends DbConn
             if (password_verify($mypassword, $result['password']) && $result['verified'] == '1') {
 
                 //Success! Register $myusername, $mypassword and return "true"
-                $success = 'true';
+				$success = true;
                 session_start();
 
                 $_SESSION['username'] = $myusername;
+				$_SESSION['idUsuario'] = $result['id'];
 
             } elseif (password_verify($mypassword, $result['password']) && $result['verified'] == '0') {
 

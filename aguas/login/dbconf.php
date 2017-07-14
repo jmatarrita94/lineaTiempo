@@ -1,8 +1,8 @@
 <?php
 //DATABASE CONNECTION VARIABLES
-$host = "107.180.12.15"; // Host name
-$username = "aguas-manager"; // Mysql username
-$password = "aguasucr"; // Mysql password
+$host = "localhost";
+$username = "root"; // Mysql username
+$password = ""; // Mysql password
 $db_name = "proyecto-aguas"; // Database name
 
 //DO NOT CHANGE BELOW THIS LINE UNLESS YOU CHANGE THE NAMES OF THE MEMBERS AND LOGINATTEMPTS TABLES

@@ -52,6 +52,7 @@ function guardarGrafi() {
         cache: false,
 		data: urlPHP,
 		success: function( data ) {
+				console.log(data);
 				alert("Gráfico guardado correctamente.");
 				document.getElementById("btnGuardarGraf").disabled = true;
 		}
