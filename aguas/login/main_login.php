@@ -19,8 +19,8 @@ if (isset($_SESSION['username'])) {
     <div class="container mt-5">
       <form class="form-signin" name="form1" method="post" action="checklogin.php">
         <h2 class="form-signin-heading text-center m-5">Iniciar sesión</h2>
-        <input name="myusername" id="myusername" type="text" class="form-control" placeholder="Username" autofocus>
-        <input name="mypassword" id="mypassword" type="password" class="form-control" placeholder="Password">
+        <input name="myusername" id="myusername" type="text" class="form-control" placeholder="Nombre de usuario" autofocus>
+        <input name="mypassword" id="mypassword" type="password" class="form-control" placeholder="Contraseña">
         <!-- The checkbox remember me is not implemented yet...
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me

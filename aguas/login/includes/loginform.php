@@ -37,7 +37,7 @@ class LoginForm extends DbConn
         if ($curr_attempts >= $max_attempts && $timeDiff < $login_timeout) {
 
             //Too many failed attempts
-            $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Maximum number of login attempts exceeded... please wait " . $timeout_minutes . " minutes before logging in again</div>";
+            $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Se ha excedido el número máximo de intentos para iniciar sesión... por favor espere " . $timeout_minutes . " minutos antes de volver a intentar.</div>";
 
         } else {
 
@@ -55,12 +55,12 @@ class LoginForm extends DbConn
             } elseif (password_verify($mypassword, $result['password']) && $result['verified'] == '0') {
 
                 //Account not yet verified
-                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Your account has been created, but you cannot log in until it has been verified</div>";
+                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Su cuenta ha sido creada, pero no puede iniciar sesión hasta que la misma no sea verificada.</div>";
 
             } else {
 
                 //Wrong username or password
-                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Wrong Username or Password</div>";
+                $success = "<div class=\"alert alert-danger alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Nombre de usuario o contraseña inválidos</div>";
 
             }
         }

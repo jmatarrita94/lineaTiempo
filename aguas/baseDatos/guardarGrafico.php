@@ -6,7 +6,8 @@ include('graficosUsuario.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_POST['nombreGrafico']) && isset($_POST['descripcion']) &&  isset($_POST['tipoGrafico']) && isset($_POST['primerPar']) && isset($_POST['tipoConsulta'])) {
 
-    $idUsr = 2;
+	session_start();
+    $idUsr = $_SESSION['idUsuario'];
     $nombreGrafico = $_POST['nombreGrafico'];
 	$descripcion = $_POST['descripcion'];
     $tipoGrafico = $_POST['tipoGrafico'];
