@@ -27,11 +27,11 @@
       <form action="/action_page.php">
         <div id="comboPuntos"></div>
         <script>llenarPuntos();</script><br>
-        Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) graficar('Fechas');"><br>
-        Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) graficar('Nombres');"><br>
+        Fecha Inicial: <input type="date" id="fechaI" value="2014-01-01" onchange="if(graficoGenerado && !graficoNombre) {graficar('Fechas'); document.getElementById('btnModGraf').disabled = false;}"><br>
+        Fecha Final: <input type="date" id="fechaF" value="2015-12-31" onchange="if(graficoGenerado && !graficoNombre) {graficar('Nombres'); document.getElementById('btnModGraf').disabled = false;}"><br>
       </form>
-      <button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficar('Fechas');">Consulta por Fechas</button>
-      <button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficar('Nombres');">Consulta por Punto de Muestreo</button>
+      <button class="button btn btn-primary mt-4" id="btnGraficoFecha" onclick="graficar('Fechas'); document.getElementById('btnModGraf').disabled = false;">Consulta por Fechas</button>
+      <button class="button btn btn-primary mt-4" id="btnGraficoNombre" onclick="graficar('Nombres'); document.getElementById('btnModGraf').disabled = false;">Consulta por Punto de Muestreo</button>
       <br>
       <br>
     </div>

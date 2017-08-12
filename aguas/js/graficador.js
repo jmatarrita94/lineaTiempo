@@ -393,6 +393,9 @@ function graficar(tConsulta) {
 	//Mostar el textbox para el nombre y los botones para guardar
 	document.getElementById('infoGrafico').style.display = 'block';
 	document.getElementById('botonesGuardar').style.display = 'block';
+	if (document.getElementById('btnModGraf') != null) {
+		document.getElementById('btnModGraf').disabled = false;
+	}
 	graficoGenerado = true;
 }
 

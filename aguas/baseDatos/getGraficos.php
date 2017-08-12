@@ -6,7 +6,13 @@ include('graficosUsuario.php');
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	session_start();
 	$idUsuario = $_SESSION['idUsuario'];
-	$datos = graficosUsuario::getGraficosPorIDUsuario($idUsuario);
+	if (isset($_GET['nLimite'])) {
+		$nLimite = $_GET['nLimite'];
+		$datos = graficosUsuario::getNGraficosPorIDUsuario($idUsuario,$nLimite);
+	}
+	else {
+		$datos = graficosUsuario::getGraficosPorIDUsuario($idUsuario);
+	}
 
 	print json_encode($datos);
 }

@@ -14,7 +14,29 @@ class graficosUsuario extends dbConn
         try {
             $dbMySQL = new dbConn;
 
-            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid ORDER BY fechaCreacion");
+            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid ORDER BY fechaCreacion DESC");
+            $stmt->bindParam(':myid', $idUsr);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            $result = "Error: " . $e->getMessage();
+        }
+
+        return $result;
+    }
+	
+	/**
+	* Retorna la fecha de creación, el nombre, la descripción y el tipo de los n últimos gráficos del usuario de ID ingresado
+	* @param idUsr id del usuario
+	* @param n Cantidad de gráficos a retornar
+	* @return JSON con los resultados
+	**/
+    public function getNGraficosPorIDUsuario($idUsr, $n) {
+        try {
+            $dbMySQL = new dbConn;
+
+            $stmt = $dbMySQL->conn->prepare("SELECT fechaCreacion, nombreGrafico, descripcion, tipoGrafico, tipoConsulta FROM graficosusuario WHERE idUsuario = :myid ORDER BY fechaCreacion DESC LIMIT " . $n . " ");
             $stmt->bindParam(':myid', $idUsr);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
